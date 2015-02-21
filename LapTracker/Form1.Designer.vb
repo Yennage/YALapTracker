@@ -22,9 +22,50 @@ Partial Class Form1
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        components = New System.ComponentModel.Container()
+        Me.components = New System.ComponentModel.Container()
+        Me.StartStopButton = New System.Windows.Forms.Button()
+        Me.LapTimer = New System.Windows.Forms.Timer(Me.components)
+        Me.TimerValue = New System.Windows.Forms.Label()
+        Me.SuspendLayout()
+        '
+        'StartStopButton
+        '
+        Me.StartStopButton.Location = New System.Drawing.Point(12, 12)
+        Me.StartStopButton.Name = "StartStopButton"
+        Me.StartStopButton.Size = New System.Drawing.Size(75, 23)
+        Me.StartStopButton.TabIndex = 0
+        Me.StartStopButton.Text = "Start Timer"
+        Me.StartStopButton.UseVisualStyleBackColor = True
+        '
+        'LapTimer
+        '
+        Me.LapTimer.Interval = 10
+        '
+        'TimerValue
+        '
+        Me.TimerValue.AutoSize = True
+        Me.TimerValue.Location = New System.Drawing.Point(93, 17)
+        Me.TimerValue.Name = "TimerValue"
+        Me.TimerValue.Size = New System.Drawing.Size(83, 13)
+        Me.TimerValue.TabIndex = 1
+        Me.TimerValue.Text = "No time elapsed"
+        '
+        'Form1
+        '
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.Text = "Form1"
+        Me.ClientSize = New System.Drawing.Size(284, 262)
+        Me.Controls.Add(Me.TimerValue)
+        Me.Controls.Add(Me.StartStopButton)
+        Me.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Name = "Form1"
+        Me.Text = "LapTracker"
+        Me.ResumeLayout(False)
+        Me.PerformLayout()
+
     End Sub
+    Friend WithEvents StartStopButton As System.Windows.Forms.Button
+    Friend WithEvents LapTimer As System.Windows.Forms.Timer
+    Friend WithEvents TimerValue As System.Windows.Forms.Label
 
 End Class
