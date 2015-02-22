@@ -26,6 +26,8 @@ Partial Class Form1
         Me.StartStopButton = New System.Windows.Forms.Button()
         Me.LapTimer = New System.Windows.Forms.Timer(Me.components)
         Me.TimerValue = New System.Windows.Forms.Label()
+        Me.fetchButton = New System.Windows.Forms.Button()
+        Me.testList = New System.Windows.Forms.ListBox()
         Me.SuspendLayout()
         '
         'StartStopButton
@@ -50,11 +52,30 @@ Partial Class Form1
         Me.TimerValue.TabIndex = 1
         Me.TimerValue.Text = "No time elapsed"
         '
+        'fetchButton
+        '
+        Me.fetchButton.Location = New System.Drawing.Point(12, 227)
+        Me.fetchButton.Name = "fetchButton"
+        Me.fetchButton.Size = New System.Drawing.Size(75, 23)
+        Me.fetchButton.TabIndex = 2
+        Me.fetchButton.Text = "Fetch Data"
+        Me.fetchButton.UseVisualStyleBackColor = True
+        '
+        'testList
+        '
+        Me.testList.FormattingEnabled = True
+        Me.testList.Location = New System.Drawing.Point(12, 41)
+        Me.testList.Name = "testList"
+        Me.testList.Size = New System.Drawing.Size(260, 173)
+        Me.testList.TabIndex = 3
+        '
         'Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(284, 262)
+        Me.Controls.Add(Me.testList)
+        Me.Controls.Add(Me.fetchButton)
         Me.Controls.Add(Me.TimerValue)
         Me.Controls.Add(Me.StartStopButton)
         Me.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
@@ -67,5 +88,7 @@ Partial Class Form1
     Friend WithEvents StartStopButton As System.Windows.Forms.Button
     Friend WithEvents LapTimer As System.Windows.Forms.Timer
     Friend WithEvents TimerValue As System.Windows.Forms.Label
+    Friend WithEvents fetchButton As System.Windows.Forms.Button
+    Friend WithEvents testList As System.Windows.Forms.ListBox
 
 End Class
