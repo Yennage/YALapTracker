@@ -27,7 +27,14 @@ Partial Class Form1
         Me.LapTimer = New System.Windows.Forms.Timer(Me.components)
         Me.TimerValue = New System.Windows.Forms.Label()
         Me.fetchButton = New System.Windows.Forms.Button()
-        Me.testList = New System.Windows.Forms.ListBox()
+        Me.dataView = New System.Windows.Forms.ListView()
+        Me.lapsID = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
+        Me.eventID = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
+        Me.eventName = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
+        Me.riderID = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
+        Me.riderName = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
+        Me.lapNumber = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
+        Me.totalTime = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.SuspendLayout()
         '
         'StartStopButton
@@ -61,20 +68,53 @@ Partial Class Form1
         Me.fetchButton.Text = "Fetch Data"
         Me.fetchButton.UseVisualStyleBackColor = True
         '
-        'testList
+        'dataView
         '
-        Me.testList.FormattingEnabled = True
-        Me.testList.Location = New System.Drawing.Point(12, 41)
-        Me.testList.Name = "testList"
-        Me.testList.Size = New System.Drawing.Size(260, 173)
-        Me.testList.TabIndex = 3
+        Me.dataView.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.lapsID, Me.eventID, Me.eventName, Me.riderID, Me.riderName, Me.lapNumber, Me.totalTime})
+        Me.dataView.FullRowSelect = True
+        Me.dataView.GridLines = True
+        Me.dataView.Location = New System.Drawing.Point(12, 41)
+        Me.dataView.MultiSelect = False
+        Me.dataView.Name = "dataView"
+        Me.dataView.Size = New System.Drawing.Size(260, 180)
+        Me.dataView.TabIndex = 3
+        Me.dataView.UseCompatibleStateImageBehavior = False
+        Me.dataView.View = System.Windows.Forms.View.Details
+        '
+        'lapsID
+        '
+        Me.lapsID.Text = "Laps ID"
+        '
+        'eventID
+        '
+        Me.eventID.Text = "Event ID"
+        '
+        'eventName
+        '
+        Me.eventName.Text = "Event Name"
+        '
+        'riderID
+        '
+        Me.riderID.Text = "Rider ID"
+        '
+        'riderName
+        '
+        Me.riderName.Text = "Rider Name"
+        '
+        'lapNumber
+        '
+        Me.lapNumber.Text = "Lap Number"
+        '
+        'totalTime
+        '
+        Me.totalTime.Text = "Total Time"
         '
         'Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(284, 262)
-        Me.Controls.Add(Me.testList)
+        Me.Controls.Add(Me.dataView)
         Me.Controls.Add(Me.fetchButton)
         Me.Controls.Add(Me.TimerValue)
         Me.Controls.Add(Me.StartStopButton)
@@ -89,6 +129,13 @@ Partial Class Form1
     Friend WithEvents LapTimer As System.Windows.Forms.Timer
     Friend WithEvents TimerValue As System.Windows.Forms.Label
     Friend WithEvents fetchButton As System.Windows.Forms.Button
-    Friend WithEvents testList As System.Windows.Forms.ListBox
+    Friend WithEvents dataView As System.Windows.Forms.ListView
+    Friend WithEvents lapsID As System.Windows.Forms.ColumnHeader
+    Friend WithEvents eventID As System.Windows.Forms.ColumnHeader
+    Friend WithEvents eventName As System.Windows.Forms.ColumnHeader
+    Friend WithEvents riderID As System.Windows.Forms.ColumnHeader
+    Friend WithEvents riderName As System.Windows.Forms.ColumnHeader
+    Friend WithEvents lapNumber As System.Windows.Forms.ColumnHeader
+    Friend WithEvents totalTime As System.Windows.Forms.ColumnHeader
 
 End Class

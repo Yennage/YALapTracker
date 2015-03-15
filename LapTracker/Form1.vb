@@ -27,35 +27,35 @@ Public Class Form1
 
     Sub FetchData() ' Quick little test of pulling data from an SQLite table
 
-        ' Define our connection and array
-        Dim liteCS As String = "URI=file:" & My.Computer.FileSystem.SpecialDirectories.MyDocuments & "\Visual Studio 2013\Projects\LapTracker\LaptrackerDB.s3db"
-        Dim currentLine() As String
+        Dim dbConnection As SQLiteConnection
+        Dim dbCommand As SQLiteCommand
+        Dim dbReader As SQLiteDataReader
+        Dim currentRow(6) As String
 
-        Using liteConnection As New SQLiteConnection(liteCS)
-            liteConnection.Open() ' Open a connection
+        dbConnection = New SQLiteConnection("URI=file:" & My.Computer.FileSystem.SpecialDirectories.MyDocuments & _
+                                            "\Visual Studio 2013\Projects\LapTracker\LaptrackerDB.s3db")
+        dbConnection.Open()
 
-            Using liteCommand As New SQLiteCommand(liteConnection) ' Define our command
+        dbCommand = dbConnection.CreateCommand()
+        dbCommand.CommandText = "SELECT * FROM laps" ' This can be updated at a later date to fetch time data from only certain events
+        dbReader = dbCommand.ExecuteReader
 
-                liteCommand.CommandText = "SELECT * FROM laps LIMIT 5" ' Build our query
-                Dim liteReader As SQLiteDataReader = liteCommand.ExecuteReader()
+        While (dbReader.Read())
+            currentRow = {dbReader("lapsID"), dbReader("eventID"), dbReader("eventName"), dbReader("riderID"), dbReader("riderName"), _
+                          dbReader("lapNumber"), dbReader("totalTime")}
+            dataView.Items.Add(New ListViewItem(currentRow))
+        End While
 
-                Using liteReader
-                    While (liteReader.Read()) ' Iterate through the results
-                        currentLine = {liteReader.GetValue(0), liteReader.GetValue(1), liteReader.GetValue(2), liteReader.GetValue(3), _
-                                       liteReader.GetValue(4)} ' Build our array
-                        testList.Items.Add("Lap time: " & currentLine(4)) ' Update the listbox
-                    End While
-                End Using
-            End Using
-
-            liteConnection.Close() ' Close the SQLite connection
-        End Using
+        If Not IsNothing(dbConnection) Then
+            dbConnection.Close()
+        End If
 
     End Sub
 
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles fetchButton.Click
 
-        testList.Items.Clear()
+        dataView.Items.Clear()
+
         FetchData()
 
     End Sub
