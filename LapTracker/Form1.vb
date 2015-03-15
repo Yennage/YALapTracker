@@ -42,8 +42,8 @@ Public Class Form1
 
         While (dbReader.Read())
             currentRow = {dbReader("lapsID"), dbReader("eventID"), dbReader("eventName"), dbReader("riderID"), dbReader("riderName"), _
-                          dbReader("lapNumber"), dbReader("totalTime")}
-            dataView.Items.Add(New ListViewItem(currentRow))
+                          dbReader("lapNumber"), dbReader("totalTime")} ' Build an array for the current row
+            dataView.Items.Add(New ListViewItem(currentRow)) ' Update the listview
         End While
 
         If Not IsNothing(dbConnection) Then
@@ -52,11 +52,28 @@ Public Class Form1
 
     End Sub
 
+    Sub NewLap(ByVal riderID As String, ByVal lapTime As String)
+
+        Dim newLap(6) As String ' The array for the row we're going to be adding
+
+        ' Will need to insert an SQLite query here to pull rider and event names
+        ' Will also need code to find and iterate the "current lap" value for each rider, as well as finding the right row to update based on rider ID
+
+        newLap = {"Do we still need this column?", "Placeholder", "Queried Result", riderID, "Queried Result", "Previous value += 1", lapTime}
+        dataView.Items.Add(New ListViewItem(newLap))
+
+    End Sub
+
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles fetchButton.Click
 
         dataView.Items.Clear()
-
         FetchData()
+
+    End Sub
+
+    Private Sub Button1_Click_1(sender As Object, e As EventArgs) Handles Button1.Click
+
+        NewLap(riderText.Text, TimerValue.Text) ' Add the new lap (pass the timer value from here for maximum accuracy as the Sub will perform queries)
 
     End Sub
 End Class

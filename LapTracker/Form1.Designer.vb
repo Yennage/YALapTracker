@@ -35,6 +35,8 @@ Partial Class Form1
         Me.riderName = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.lapNumber = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.totalTime = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
+        Me.Button1 = New System.Windows.Forms.Button()
+        Me.riderText = New System.Windows.Forms.TextBox()
         Me.SuspendLayout()
         '
         'StartStopButton
@@ -109,11 +111,29 @@ Partial Class Form1
         '
         Me.totalTime.Text = "Total Time"
         '
+        'Button1
+        '
+        Me.Button1.Location = New System.Drawing.Point(197, 256)
+        Me.Button1.Name = "Button1"
+        Me.Button1.Size = New System.Drawing.Size(75, 23)
+        Me.Button1.TabIndex = 4
+        Me.Button1.Text = "Add Lap!"
+        Me.Button1.UseVisualStyleBackColor = True
+        '
+        'riderText
+        '
+        Me.riderText.Location = New System.Drawing.Point(12, 256)
+        Me.riderText.Name = "riderText"
+        Me.riderText.Size = New System.Drawing.Size(179, 21)
+        Me.riderText.TabIndex = 5
+        '
         'Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(284, 262)
+        Me.ClientSize = New System.Drawing.Size(284, 286)
+        Me.Controls.Add(Me.riderText)
+        Me.Controls.Add(Me.Button1)
         Me.Controls.Add(Me.dataView)
         Me.Controls.Add(Me.fetchButton)
         Me.Controls.Add(Me.TimerValue)
@@ -137,5 +157,7 @@ Partial Class Form1
     Friend WithEvents riderName As System.Windows.Forms.ColumnHeader
     Friend WithEvents lapNumber As System.Windows.Forms.ColumnHeader
     Friend WithEvents totalTime As System.Windows.Forms.ColumnHeader
+    Friend WithEvents Button1 As System.Windows.Forms.Button
+    Friend WithEvents riderText As System.Windows.Forms.TextBox
 
 End Class
