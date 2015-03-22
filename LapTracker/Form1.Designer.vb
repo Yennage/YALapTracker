@@ -28,15 +28,16 @@ Partial Class Form1
         Me.TimerValue = New System.Windows.Forms.Label()
         Me.fetchButton = New System.Windows.Forms.Button()
         Me.dataView = New System.Windows.Forms.ListView()
-        Me.lapsID = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.eventID = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.eventName = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.riderID = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.riderName = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.lapNumber = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.totalTime = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
-        Me.Button1 = New System.Windows.Forms.Button()
+        Me.addButton = New System.Windows.Forms.Button()
         Me.riderText = New System.Windows.Forms.TextBox()
+        Me.riderClass = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
+        Me.testFind = New System.Windows.Forms.Button()
         Me.SuspendLayout()
         '
         'StartStopButton
@@ -72,53 +73,58 @@ Partial Class Form1
         '
         'dataView
         '
-        Me.dataView.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.lapsID, Me.eventID, Me.eventName, Me.riderID, Me.riderName, Me.lapNumber, Me.totalTime})
+        Me.dataView.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.dataView.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.eventID, Me.eventName, Me.riderID, Me.riderName, Me.riderClass, Me.lapNumber, Me.totalTime})
         Me.dataView.FullRowSelect = True
         Me.dataView.GridLines = True
         Me.dataView.Location = New System.Drawing.Point(12, 41)
         Me.dataView.MultiSelect = False
         Me.dataView.Name = "dataView"
-        Me.dataView.Size = New System.Drawing.Size(260, 180)
+        Me.dataView.Size = New System.Drawing.Size(568, 180)
         Me.dataView.TabIndex = 3
         Me.dataView.UseCompatibleStateImageBehavior = False
         Me.dataView.View = System.Windows.Forms.View.Details
         '
-        'lapsID
-        '
-        Me.lapsID.Text = "Laps ID"
-        '
         'eventID
         '
         Me.eventID.Text = "Event ID"
+        Me.eventID.Width = 80
         '
         'eventName
         '
         Me.eventName.Text = "Event Name"
+        Me.eventName.Width = 80
         '
         'riderID
         '
-        Me.riderID.Text = "Rider ID"
+        Me.riderID.Text = "Rider No."
+        Me.riderID.Width = 80
         '
         'riderName
         '
         Me.riderName.Text = "Rider Name"
+        Me.riderName.Width = 80
         '
         'lapNumber
         '
         Me.lapNumber.Text = "Lap Number"
+        Me.lapNumber.Width = 80
         '
         'totalTime
         '
         Me.totalTime.Text = "Total Time"
+        Me.totalTime.Width = 80
         '
-        'Button1
+        'addButton
         '
-        Me.Button1.Location = New System.Drawing.Point(197, 256)
-        Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(75, 23)
-        Me.Button1.TabIndex = 4
-        Me.Button1.Text = "Add Lap!"
-        Me.Button1.UseVisualStyleBackColor = True
+        Me.addButton.Location = New System.Drawing.Point(197, 256)
+        Me.addButton.Name = "addButton"
+        Me.addButton.Size = New System.Drawing.Size(75, 23)
+        Me.addButton.TabIndex = 4
+        Me.addButton.Text = "Add Lap!"
+        Me.addButton.UseVisualStyleBackColor = True
         '
         'riderText
         '
@@ -127,13 +133,28 @@ Partial Class Form1
         Me.riderText.Size = New System.Drawing.Size(179, 21)
         Me.riderText.TabIndex = 5
         '
+        'riderClass
+        '
+        Me.riderClass.Text = "Rider Class"
+        Me.riderClass.Width = 80
+        '
+        'testFind
+        '
+        Me.testFind.Location = New System.Drawing.Point(93, 227)
+        Me.testFind.Name = "testFind"
+        Me.testFind.Size = New System.Drawing.Size(75, 23)
+        Me.testFind.TabIndex = 6
+        Me.testFind.Text = "Test Find"
+        Me.testFind.UseVisualStyleBackColor = True
+        '
         'Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(284, 286)
+        Me.ClientSize = New System.Drawing.Size(592, 286)
+        Me.Controls.Add(Me.testFind)
         Me.Controls.Add(Me.riderText)
-        Me.Controls.Add(Me.Button1)
+        Me.Controls.Add(Me.addButton)
         Me.Controls.Add(Me.dataView)
         Me.Controls.Add(Me.fetchButton)
         Me.Controls.Add(Me.TimerValue)
@@ -150,14 +171,15 @@ Partial Class Form1
     Friend WithEvents TimerValue As System.Windows.Forms.Label
     Friend WithEvents fetchButton As System.Windows.Forms.Button
     Friend WithEvents dataView As System.Windows.Forms.ListView
-    Friend WithEvents lapsID As System.Windows.Forms.ColumnHeader
     Friend WithEvents eventID As System.Windows.Forms.ColumnHeader
     Friend WithEvents eventName As System.Windows.Forms.ColumnHeader
     Friend WithEvents riderID As System.Windows.Forms.ColumnHeader
     Friend WithEvents riderName As System.Windows.Forms.ColumnHeader
     Friend WithEvents lapNumber As System.Windows.Forms.ColumnHeader
     Friend WithEvents totalTime As System.Windows.Forms.ColumnHeader
-    Friend WithEvents Button1 As System.Windows.Forms.Button
+    Friend WithEvents addButton As System.Windows.Forms.Button
     Friend WithEvents riderText As System.Windows.Forms.TextBox
+    Friend WithEvents riderClass As System.Windows.Forms.ColumnHeader
+    Friend WithEvents testFind As System.Windows.Forms.Button
 
 End Class

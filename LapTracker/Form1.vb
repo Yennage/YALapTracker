@@ -54,12 +54,30 @@ Public Class Form1
 
     Sub NewLap(ByVal riderID As String, ByVal lapTime As String)
 
-        Dim newLap(6) As String ' The array for the row we're going to be adding
-
         ' Will need to insert an SQLite query here to pull rider and event names
         ' Will also need code to find and iterate the "current lap" value for each rider, as well as finding the right row to update based on rider ID
+        ' Once the event is complete, the data will simply need to be written to the SQLite DB as an "archive" ready for future printing with a query
 
-        newLap = {"Do we still need this column?", "Placeholder", "Queried Result", riderID, "Queried Result", "Previous value += 1", lapTime}
+        Dim dbConnection As SQLiteConnection
+        Dim dbCommand As SQLiteCommand
+        Dim dbReader As SQLiteDataReader
+        Dim newLap(6) As String ' The array for the row we're going to be adding
+        Dim riderName As String = ""
+        Dim riderClass As String = ""
+
+        dbConnection = New SQLiteConnection("URI=file:" & My.Computer.FileSystem.SpecialDirectories.MyDocuments & _
+                                            "\Visual Studio 2013\Projects\LapTracker\LaptrackerDB.s3db")
+        dbConnection.Open()
+
+        dbCommand = dbConnection.CreateCommand()
+        dbCommand.CommandText = "SELECT * FROM riders WHERE riderID =" & riderText.Text ' Query the rider ID against the riders table
+        dbReader = dbCommand.ExecuteReader
+        While (dbReader.Read())
+            riderName = dbReader("riderName") ' Return the value
+            riderClass = dbReader("riderClass")
+        End While
+
+        newLap = {"Placeholder", "Queried Result", riderID, riderName, riderClass, "Previous value += 1", lapTime}
         dataView.Items.Add(New ListViewItem(newLap))
 
     End Sub
@@ -71,9 +89,30 @@ Public Class Form1
 
     End Sub
 
-    Private Sub Button1_Click_1(sender As Object, e As EventArgs) Handles Button1.Click
+    Private Sub Button1_Click_1(sender As Object, e As EventArgs) Handles addButton.Click
 
         NewLap(riderText.Text, TimerValue.Text) ' Add the new lap (pass the timer value from here for maximum accuracy as the Sub will perform queries)
+
+    End Sub
+
+    Private Sub findFunction(ByVal searchText As String)
+
+        Dim lapCount As Integer = 0
+
+        For Each currentRow As ListViewItem In dataView.Items ' Iterate through our laps listview
+
+            If searchText = currentRow.SubItems(2).Text Then ' If the riderID matches
+                lapCount = CInt(currentRow.SubItems(5).Text)
+                currentRow.SubItems(5).Text = lapCount + 1
+            End If
+
+        Next
+
+    End Sub
+
+    Private Sub testFind_Click(sender As Object, e As EventArgs) Handles testFind.Click
+
+        findFunction("test2")
 
     End Sub
 End Class
