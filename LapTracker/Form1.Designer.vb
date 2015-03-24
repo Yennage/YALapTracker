@@ -32,11 +32,11 @@ Partial Class Form1
         Me.eventName = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.riderID = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.riderName = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
+        Me.riderClass = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.lapNumber = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.totalTime = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.addButton = New System.Windows.Forms.Button()
         Me.riderText = New System.Windows.Forms.TextBox()
-        Me.riderClass = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.testFind = New System.Windows.Forms.Button()
         Me.SuspendLayout()
         '
@@ -51,7 +51,7 @@ Partial Class Form1
         '
         'LapTimer
         '
-        Me.LapTimer.Interval = 10
+        Me.LapTimer.Interval = 1
         '
         'TimerValue
         '
@@ -107,6 +107,11 @@ Partial Class Form1
         Me.riderName.Text = "Rider Name"
         Me.riderName.Width = 80
         '
+        'riderClass
+        '
+        Me.riderClass.Text = "Rider Class"
+        Me.riderClass.Width = 80
+        '
         'lapNumber
         '
         Me.lapNumber.Text = "Lap Number"
@@ -132,11 +137,6 @@ Partial Class Form1
         Me.riderText.Name = "riderText"
         Me.riderText.Size = New System.Drawing.Size(179, 21)
         Me.riderText.TabIndex = 5
-        '
-        'riderClass
-        '
-        Me.riderClass.Text = "Rider Class"
-        Me.riderClass.Width = 80
         '
         'testFind
         '

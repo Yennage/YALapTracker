@@ -2,7 +2,7 @@
 Public Class Form1
 
     Public Class GlobalVariables ' Declared here rather than in a separate class file as we're only using one global var anyway
-        Public Shared elapsedSeconds As Double
+        Public Shared elapsedMilliseconds As UInt64 ' We're counting in milliseconds so better safe than sorry
     End Class
 
     Private Sub StartStopButton_Click(sender As Object, e As EventArgs) Handles StartStopButton.Click
@@ -12,7 +12,7 @@ Public Class Form1
             LapTimer.Enabled = False
         Else
             StartStopButton.Text = "Stop Timer"
-            GlobalVariables.elapsedSeconds = 0 ' Reset the variable
+            GlobalVariables.elapsedMilliseconds = 0 ' Reset the variable
             LapTimer.Enabled = True
         End If
 
@@ -20,8 +20,20 @@ Public Class Form1
 
     Private Sub LapTimer_Tick(sender As Object, e As EventArgs) Handles LapTimer.Tick
 
-        GlobalVariables.elapsedSeconds += 1 ' Increment the global var
-        TimerValue.Text = String.Format("{0} seconds elapsed", Math.Round((GlobalVariables.elapsedSeconds / 100), 2)) ' Build the string
+        ' Variables for millisecond conversions
+        Dim millisecondCount As Integer = 0
+        Dim secondCount As Integer = 0
+        Dim minuteCount As Integer = 0
+        Dim hourCount As Integer = 0
+
+        GlobalVariables.elapsedMilliseconds += 1 ' Increment the global var
+
+        millisecondCount = GlobalVariables.elapsedMilliseconds Mod 100 ' Millisecond count
+        secondCount = ((GlobalVariables.elapsedMilliseconds - millisecondCount) / 100) Mod 60 ' Second count
+        minuteCount = ((GlobalVariables.elapsedMilliseconds - (millisecondCount + (secondCount * 60))) / 6000) Mod 60 ' Minute count
+
+        TimerValue.Text = minuteCount.ToString("D2") & ":" & secondCount.ToString("D2") & "." & _
+            millisecondCount.ToString("D2") ' Build the label text string
 
     End Sub
 
