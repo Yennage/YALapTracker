@@ -2,17 +2,19 @@
 Public Class Form1
 
     Public Class GlobalVariables ' Declared here rather than in a separate class file as we're only using one global var anyway
-        Public Shared elapsedMilliseconds As UInt64 ' We're counting in milliseconds so better safe than sorry
+        Public Shared elapsedSeconds As UInt64 ' We're counting in milliseconds so better safe than sorry
     End Class
 
     Private Sub StartStopButton_Click(sender As Object, e As EventArgs) Handles StartStopButton.Click
+
+        ' MessageBox.Show(1002 Mod 1000)
 
         If LapTimer.Enabled = True Then ' Simple if statement for our dual usage start/stop button
             StartStopButton.Text = "Start Timer"
             LapTimer.Enabled = False
         Else
             StartStopButton.Text = "Stop Timer"
-            GlobalVariables.elapsedMilliseconds = 0 ' Reset the variable
+            GlobalVariables.elapsedSeconds = 0 ' Reset the variable
             LapTimer.Enabled = True
         End If
 
@@ -20,20 +22,18 @@ Public Class Form1
 
     Private Sub LapTimer_Tick(sender As Object, e As EventArgs) Handles LapTimer.Tick
 
-        ' Variables for millisecond conversions
-        Dim millisecondCount As Integer = 0
+        ' Variables for second conversions
         Dim secondCount As Integer = 0
         Dim minuteCount As Integer = 0
         Dim hourCount As Integer = 0
 
-        GlobalVariables.elapsedMilliseconds += 1 ' Increment the global var
+        GlobalVariables.elapsedSeconds += 1 ' Increment the global var
 
-        millisecondCount = GlobalVariables.elapsedMilliseconds Mod 100 ' Millisecond count
-        secondCount = ((GlobalVariables.elapsedMilliseconds - millisecondCount) / 100) Mod 60 ' Second count
-        minuteCount = ((GlobalVariables.elapsedMilliseconds - (millisecondCount + (secondCount * 60))) / 6000) Mod 60 ' Minute count
+        secondCount = GlobalVariables.elapsedSeconds Mod 60 ' Second count
+        minuteCount = ((GlobalVariables.elapsedSeconds - secondCount) / 60) Mod 60 ' Minute count
+        hourCount = ((GlobalVariables.elapsedSeconds - (secondCount + (minuteCount * 60))) / 3600) Mod 60 ' Hour count
 
-        TimerValue.Text = minuteCount.ToString("D2") & ":" & secondCount.ToString("D2") & "." & _
-            millisecondCount.ToString("D2") ' Build the label text string
+        TimerValue.Text = hourCount.ToString("D2") & ":" & minuteCount.ToString("D2") & ":" & secondCount.ToString("D2") ' Build the label text string
 
     End Sub
 

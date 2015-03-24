@@ -51,7 +51,7 @@ Partial Class Form1
         '
         'LapTimer
         '
-        Me.LapTimer.Interval = 1
+        Me.LapTimer.Interval = 1000
         '
         'TimerValue
         '
