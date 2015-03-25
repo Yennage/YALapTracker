@@ -7,8 +7,6 @@ Public Class Form1
 
     Private Sub StartStopButton_Click(sender As Object, e As EventArgs) Handles StartStopButton.Click
 
-        ' MessageBox.Show(1002 Mod 1000)
-
         If LapTimer.Enabled = True Then ' Simple if statement for our dual usage start/stop button
             StartStopButton.Text = "Start Timer"
             LapTimer.Enabled = False
@@ -77,20 +75,22 @@ Public Class Form1
         Dim riderName As String = ""
         Dim riderClass As String = ""
 
-        dbConnection = New SQLiteConnection("URI=file:" & My.Computer.FileSystem.SpecialDirectories.MyDocuments & _
-                                            "\Visual Studio 2013\Projects\LapTracker\LaptrackerDB.s3db")
-        dbConnection.Open()
+        If findFunction(riderText.Text, lapTime) = False Then ' Try and match the riderID to an existing entry in the listview
 
-        dbCommand = dbConnection.CreateCommand()
-        dbCommand.CommandText = "SELECT * FROM riders WHERE riderID =" & riderText.Text ' Query the rider ID against the riders table
-        dbReader = dbCommand.ExecuteReader
-        While (dbReader.Read())
-            riderName = dbReader("riderName") ' Return the value
-            riderClass = dbReader("riderClass")
-        End While
-
-        newLap = {"Placeholder", "Queried Result", riderID, riderName, riderClass, "Previous value += 1", lapTime}
-        dataView.Items.Add(New ListViewItem(newLap))
+            ' We can't find a match so query the database to get the rider details
+            dbConnection = New SQLiteConnection("URI=file:" & My.Computer.FileSystem.SpecialDirectories.MyDocuments & _
+                                                "\Visual Studio 2013\Projects\LapTracker\LaptrackerDB.s3db")
+            dbConnection.Open()
+            dbCommand = dbConnection.CreateCommand()
+            dbCommand.CommandText = "SELECT * FROM riders WHERE riderID =" & riderText.Text ' Query the rider ID against the riders table
+            dbReader = dbCommand.ExecuteReader
+            While (dbReader.Read())
+                riderName = dbReader("riderName") ' Return the value
+                riderClass = dbReader("riderClass")
+            End While
+            newLap = {"Placeholder", "Queried Result", riderID, riderName, riderClass, "1", lapTime} ' Build the array (lap number of 1)
+            dataView.Items.Add(New ListViewItem(newLap)) ' Add the new lap details to the listview
+        End If ' If the functions returns true then no updates or SQLite queries are required
 
     End Sub
 
@@ -107,24 +107,30 @@ Public Class Form1
 
     End Sub
 
-    Private Sub findFunction(ByVal searchText As String)
+    Public Function findFunction(ByVal searchText As String, ByVal lapTime As String)
 
         Dim lapCount As Integer = 0
+        Dim matchFound As Boolean = False
 
         For Each currentRow As ListViewItem In dataView.Items ' Iterate through our laps listview
 
             If searchText = currentRow.SubItems(2).Text Then ' If the riderID matches
-                lapCount = CInt(currentRow.SubItems(5).Text)
-                currentRow.SubItems(5).Text = lapCount + 1
+                lapCount = CInt(currentRow.SubItems(5).Text) ' Pull the current lapcount
+                currentRow.SubItems(5).Text = lapCount + 1 ' Increment the lapcount in the listview
+                currentRow.SubItems(6).Text = lapTime ' Update the laptime (passed from the NewLap sub to ensure both accuracy and precision)
+                Return True
+                Exit Function ' Break this statement and exit the function if we find a match as the UI update is handled here
             End If
 
         Next
 
-    End Sub
+        Return False ' If we can't find a match
+
+    End Function
 
     Private Sub testFind_Click(sender As Object, e As EventArgs) Handles testFind.Click
 
-        findFunction("test2")
+        findFunction("test2", "99:59:59")
 
     End Sub
 End Class
