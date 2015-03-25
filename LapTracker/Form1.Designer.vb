@@ -45,7 +45,7 @@ Partial Class Form1
         Me.StartStopButton.Location = New System.Drawing.Point(12, 12)
         Me.StartStopButton.Name = "StartStopButton"
         Me.StartStopButton.Size = New System.Drawing.Size(75, 23)
-        Me.StartStopButton.TabIndex = 0
+        Me.StartStopButton.TabIndex = 5
         Me.StartStopButton.Text = "Start Timer"
         Me.StartStopButton.UseVisualStyleBackColor = True
         '
@@ -136,7 +136,7 @@ Partial Class Form1
         Me.riderText.Location = New System.Drawing.Point(12, 256)
         Me.riderText.Name = "riderText"
         Me.riderText.Size = New System.Drawing.Size(179, 21)
-        Me.riderText.TabIndex = 5
+        Me.riderText.TabIndex = 0
         '
         'testFind
         '
@@ -149,6 +149,7 @@ Partial Class Form1
         '
         'Form1
         '
+        Me.AcceptButton = Me.addButton
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(592, 286)

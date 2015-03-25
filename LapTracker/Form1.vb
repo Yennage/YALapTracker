@@ -88,8 +88,14 @@ Public Class Form1
                 riderName = dbReader("riderName") ' Return the value
                 riderClass = dbReader("riderClass")
             End While
-            newLap = {"Placeholder", "Queried Result", riderID, riderName, riderClass, "1", lapTime} ' Build the array (lap number of 1)
-            dataView.Items.Add(New ListViewItem(newLap)) ' Add the new lap details to the listview
+            If riderName = "" Then
+                MessageBox.Show("Rider ID: " & riderID & " not found in riders database table.", "Rider Not Found...", MessageBoxButtons.OK, _
+                                MessageBoxIcon.Warning)
+                riderText.Clear()
+            Else
+                newLap = {"Placeholder", "Queried Result", riderID, riderName, riderClass, "1", lapTime} ' Build the array (lap number of 1)
+                dataView.Items.Add(New ListViewItem(newLap)) ' Add the new lap details to the listview
+            End If
         End If ' If the functions returns true then no updates or SQLite queries are required
 
     End Sub
@@ -131,6 +137,24 @@ Public Class Form1
     Private Sub testFind_Click(sender As Object, e As EventArgs) Handles testFind.Click
 
         findFunction("test2", "99:59:59")
+
+    End Sub
+
+    Private Sub riderText_KeyPress(sender As Object, e As KeyPressEventArgs) Handles riderText.KeyPress
+
+        ' Prevent non-numeric characters from being entered into the riderID textbox
+        If e.KeyChar <> ChrW(Keys.Back) Then
+            If Char.IsNumber(e.KeyChar) Then
+            Else
+                e.Handled = True
+            End If
+        End If
+
+    End Sub
+
+    Private Sub Form1_Load(sender As Object, e As EventArgs) Handles Me.Load
+
+        riderText.Focus()
 
     End Sub
 End Class
