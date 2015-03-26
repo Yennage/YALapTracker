@@ -61,6 +61,7 @@ Partial Class Form1
         Me.TimerValue.Size = New System.Drawing.Size(83, 13)
         Me.TimerValue.TabIndex = 1
         Me.TimerValue.Text = "No time elapsed"
+        Me.TimerValue.Visible = False
         '
         'fetchButton
         '
@@ -128,7 +129,7 @@ Partial Class Form1
         Me.addButton.Name = "addButton"
         Me.addButton.Size = New System.Drawing.Size(75, 23)
         Me.addButton.TabIndex = 4
-        Me.addButton.Text = "Add Lap!"
+        Me.addButton.Text = "Add Lap"
         Me.addButton.UseVisualStyleBackColor = True
         '
         'riderText
