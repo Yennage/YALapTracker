@@ -119,6 +119,12 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Compile Include="PrintEventList.Designer.vb">
+      <DependentUpon>PrintEventList.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PrintEventList.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="StartForm.Designer.vb">
       <DependentUpon>StartForm.vb</DependentUpon>
     </Compile>
@@ -138,6 +144,9 @@
       <LastGenOutput>Resources.Designer.vb</LastGenOutput>
       <CustomToolNamespace>My.Resources</CustomToolNamespace>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PrintEventList.resx">
+      <DependentUpon>PrintEventList.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="StartForm.resx">
       <DependentUpon>StartForm.vb</DependentUpon>

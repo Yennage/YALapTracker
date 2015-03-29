@@ -59,7 +59,7 @@ Public Class Form1
         dbConnection.Open()
 
         dbCommand = dbConnection.CreateCommand()
-        dbCommand.CommandText = "SELECT * FROM laps" ' This can be updated at a later date to fetch lap data from only certain events
+        dbCommand.CommandText = "SELECT * FROM laps ORDER BY totalTime ASC" ' This can be updated at a later date to fetch lap data from only certain events
         dbReader = dbCommand.ExecuteReader
 
         While (dbReader.Read())
@@ -135,7 +135,7 @@ Public Class Form1
 
     Private Sub Button1_Click_1(sender As Object, e As EventArgs) Handles addButton.Click
 
-        GlobalVariables.eventID = 1 ' Purely for testing purposes
+        ' GlobalVariables.eventID = 1 ' Purely for testing purposes
         GetEventName() ' This is purely placeholder as we don't have a "starter" form yet to handle event names
         NewLap(riderText.Text, TimerValue.Text) ' Add the new lap (pass the timer value from here for maximum accuracy as the Sub will perform queries)
 
