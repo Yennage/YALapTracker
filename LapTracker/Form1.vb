@@ -49,28 +49,18 @@ Public Class Form1
 
     Sub FetchData() ' Quick little test of pulling data from an SQLite table (will be used for future printing functionality)
 
-        Dim dbConnection As SQLiteConnection
-        Dim dbCommand As SQLiteCommand
+        Dim operations As New DBOperations
         Dim dbReader As SQLiteDataReader
         Dim currentRow(6) As String
 
-        dbConnection = New SQLiteConnection("URI=file:" & My.Computer.FileSystem.SpecialDirectories.MyDocuments & _
-                                            "\Visual Studio 2013\Projects\LapTracker\LaptrackerDB.s3db")
-        dbConnection.Open()
-
-        dbCommand = dbConnection.CreateCommand()
-        dbCommand.CommandText = "SELECT * FROM laps ORDER BY totalTime ASC" ' This can be updated at a later date to fetch lap data from only certain events
-        dbReader = dbCommand.ExecuteReader
+        dbReader = operations.SelectQuery("SELECT * FROM laps ORDER BY totalTime ASC", _
+                                          True) ' This can be updated at a later date to fetch lap data from only certain events
 
         While (dbReader.Read())
             currentRow = {dbReader("lapsID"), dbReader("eventID"), dbReader("eventName"), dbReader("riderID"), dbReader("riderName"), _
                           dbReader("lapNumber"), dbReader("totalTime")} ' Build an array for the current row
             dataView.Items.Add(New ListViewItem(currentRow)) ' Update the listview
         End While
-
-        If Not IsNothing(dbConnection) Then
-            dbConnection.Close()
-        End If
 
     End Sub
 
@@ -85,7 +75,7 @@ Public Class Form1
         If findFunction(riderText.Text, lapTime) = False Then ' Try and match the riderID to an existing entry in the listview
 
             ' We can't find a match so query the database to get the rider details
-        Dim operations As New DBOperations
+            Dim operations As New DBOperations
             Dim dbReader As SQLiteDataReader
             dbReader = operations.SelectQuery("SELECT * FROM riders WHERE riderID =" & riderText.Text, True) ' Query the rider ID against the riders table
 

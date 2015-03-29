@@ -20,5 +20,9 @@ Public Class DBOperations
             Return resultReader
         End If
 
+        If Not IsNothing(dbConnection) Then
+            dbConnection.Close()
+        End If
+
     End Function
 End Class
