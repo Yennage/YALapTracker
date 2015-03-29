@@ -38,6 +38,8 @@ Partial Class Form1
         Me.addButton = New System.Windows.Forms.Button()
         Me.riderText = New System.Windows.Forms.TextBox()
         Me.testFind = New System.Windows.Forms.Button()
+        Me.disclaimerLabel = New System.Windows.Forms.Label()
+        Me.saveButton = New System.Windows.Forms.Button()
         Me.SuspendLayout()
         '
         'StartStopButton
@@ -125,7 +127,7 @@ Partial Class Form1
         '
         'addButton
         '
-        Me.addButton.Location = New System.Drawing.Point(197, 256)
+        Me.addButton.Location = New System.Drawing.Point(371, 256)
         Me.addButton.Name = "addButton"
         Me.addButton.Size = New System.Drawing.Size(75, 23)
         Me.addButton.TabIndex = 4
@@ -136,7 +138,7 @@ Partial Class Form1
         '
         Me.riderText.Location = New System.Drawing.Point(12, 256)
         Me.riderText.Name = "riderText"
-        Me.riderText.Size = New System.Drawing.Size(179, 21)
+        Me.riderText.Size = New System.Drawing.Size(353, 21)
         Me.riderText.TabIndex = 0
         '
         'testFind
@@ -145,8 +147,27 @@ Partial Class Form1
         Me.testFind.Name = "testFind"
         Me.testFind.Size = New System.Drawing.Size(75, 23)
         Me.testFind.TabIndex = 6
-        Me.testFind.Text = "Test Find"
+        Me.testFind.Text = "Test Class"
         Me.testFind.UseVisualStyleBackColor = True
+        '
+        'disclaimerLabel
+        '
+        Me.disclaimerLabel.AutoSize = True
+        Me.disclaimerLabel.Location = New System.Drawing.Point(174, 232)
+        Me.disclaimerLabel.Name = "disclaimerLabel"
+        Me.disclaimerLabel.Size = New System.Drawing.Size(410, 13)
+        Me.disclaimerLabel.TabIndex = 7
+        Me.disclaimerLabel.Text = "This row of buttons is for development only and will be absent from release versi" & _
+    "ons"
+        '
+        'saveButton
+        '
+        Me.saveButton.Location = New System.Drawing.Point(452, 256)
+        Me.saveButton.Name = "saveButton"
+        Me.saveButton.Size = New System.Drawing.Size(128, 23)
+        Me.saveButton.TabIndex = 8
+        Me.saveButton.Text = "Complete and Save"
+        Me.saveButton.UseVisualStyleBackColor = True
         '
         'Form1
         '
@@ -154,6 +175,8 @@ Partial Class Form1
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(592, 286)
+        Me.Controls.Add(Me.saveButton)
+        Me.Controls.Add(Me.disclaimerLabel)
         Me.Controls.Add(Me.testFind)
         Me.Controls.Add(Me.riderText)
         Me.Controls.Add(Me.addButton)
@@ -183,5 +206,7 @@ Partial Class Form1
     Friend WithEvents riderText As System.Windows.Forms.TextBox
     Friend WithEvents riderClass As System.Windows.Forms.ColumnHeader
     Friend WithEvents testFind As System.Windows.Forms.Button
+    Friend WithEvents disclaimerLabel As System.Windows.Forms.Label
+    Friend WithEvents saveButton As System.Windows.Forms.Button
 
 End Class

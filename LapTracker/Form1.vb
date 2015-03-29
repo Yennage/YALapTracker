@@ -40,19 +40,11 @@ Public Class Form1
 
     End Sub
 
-    Public Sub GetEventName()
+    Public Sub GetEventName() ' Used to query the events table for the name of the event
 
-        Dim dbConnection As SQLiteConnection
-        Dim dbCommand As SQLiteCommand
+        Dim operations As New DBOperations
         Dim dbReader As SQLiteDataReader
-
-        dbConnection = New SQLiteConnection("URI=file:" & My.Computer.FileSystem.SpecialDirectories.MyDocuments & _
-                                            "\Visual Studio 2013\Projects\LapTracker\LaptrackerDB.s3db")
-        dbConnection.Open()
-
-        dbCommand = dbConnection.CreateCommand()
-        dbCommand.CommandText = "SELECT * FROM events WHERE eventID =" & GlobalVariables.eventID ' Query the events table to grab the name
-        dbReader = dbCommand.ExecuteReader
+        dbReader = operations.SelectQuery("SELECT * FROM events WHERE eventID =" & GlobalVariables.eventID)
 
         While (dbReader.Read())
             GlobalVariables.eventName = dbReader("eventName") ' Set our global variable to the queried event name
@@ -60,7 +52,7 @@ Public Class Form1
 
     End Sub
 
-    Sub FetchData() ' Quick little test of pulling data from an SQLite table
+    Sub FetchData() ' Quick little test of pulling data from an SQLite table (will be used for future printing functionality)
 
         Dim dbConnection As SQLiteConnection
         Dim dbCommand As SQLiteCommand
@@ -89,13 +81,8 @@ Public Class Form1
 
     Sub NewLap(ByVal riderID As String, ByVal lapTime As String)
 
-        ' Will need to insert an SQLite query here to pull rider and event names
-        ' Will also need code to find and iterate the "current lap" value for each rider, as well as finding the right row to update based on rider ID ## DONE
         ' Once the event is complete, the data will simply need to be written to the SQLite DB as an "archive" ready for future printing with a query
 
-        Dim dbConnection As SQLiteConnection
-        Dim dbCommand As SQLiteCommand
-        Dim dbReader As SQLiteDataReader
         Dim newLap(6) As String ' The array for the row we're going to be adding
         Dim riderName As String = ""
         Dim riderClass As String = ""
@@ -103,26 +90,44 @@ Public Class Form1
         If findFunction(riderText.Text, lapTime) = False Then ' Try and match the riderID to an existing entry in the listview
 
             ' We can't find a match so query the database to get the rider details
-            dbConnection = New SQLiteConnection("URI=file:" & My.Computer.FileSystem.SpecialDirectories.MyDocuments & _
-                                                "\Visual Studio 2013\Projects\LapTracker\LaptrackerDB.s3db")
-            dbConnection.Open()
-            dbCommand = dbConnection.CreateCommand()
-            dbCommand.CommandText = "SELECT * FROM riders WHERE riderID =" & riderText.Text ' Query the rider ID against the riders table
-            dbReader = dbCommand.ExecuteReader
+        Dim operations As New DBOperations
+            Dim dbReader As SQLiteDataReader
+            dbReader = operations.SelectQuery("SELECT * FROM riders WHERE riderID =" & riderText.Text) ' Query the rider ID against the riders table
+
             While (dbReader.Read())
                 riderName = dbReader("riderName") ' Return the value
                 riderClass = dbReader("riderClass")
             End While
+
             If riderName = "" Then ' If the query returns blank
                 MessageBox.Show("Rider ID: " & riderID & " not found in riders database table.", "Rider Not Found...", MessageBoxButtons.OK, _
                                 MessageBoxIcon.Warning) ' Update the user
                 riderText.Clear() ' Clear the textbox to ensure a fast workflow
-            Else
+            Else ' If the query returns a match
                 newLap = {GlobalVariables.eventID, GlobalVariables.eventName, riderID, riderName, _
                           riderClass, "1", lapTime} ' Build the array (lap number of 1)
                 dataView.Items.Add(New ListViewItem(newLap)) ' Add the new lap details to the listview
             End If
-        End If ' If the functions returns true then no updates or SQLite queries are required
+        End If ' If the function returns true then no updates or SQLite queries are required
+
+    End Sub
+
+    Sub WritetoDatabase() ' Writes the data from a completed event to the SQLite laps table (move SQLite stuff over to a separate class)
+
+        Dim dbConnection As SQLiteConnection = New SQLiteConnection("URI=file:" & My.Computer.FileSystem.SpecialDirectories.MyDocuments & _
+                                               "\Visual Studio 2013\Projects\LapTracker\LaptrackerDB.s3db")
+        Dim insertCommand As SQLiteCommand = New SQLiteCommand("INSERT INTO laps (eventID, eventName, riderID, riderName, lapNumber, " & _
+                                                               "totalTime) VALUES (@eventID, @eventName, @riderID, @riderName, @lapNumber, " & _
+                                                               "@totalTime)", dbConnection) ' Build our query
+        insertCommand.Parameters.AddWithValue("@eventID", 1337) ' Add parameters
+        insertCommand.Parameters.AddWithValue("@eventName", "test event")
+        insertCommand.Parameters.AddWithValue("@riderID", 1337)
+        insertCommand.Parameters.AddWithValue("@riderName", "Yen Nage")
+        insertCommand.Parameters.AddWithValue("@lapNumber", 100)
+        insertCommand.Parameters.AddWithValue("@totalTime", 1000)
+        dbConnection.Open()
+        insertCommand.ExecuteNonQuery() ' Execute the query
+        MessageBox.Show("Write Completed")
 
     End Sub
 
@@ -135,7 +140,7 @@ Public Class Form1
 
     Private Sub Button1_Click_1(sender As Object, e As EventArgs) Handles addButton.Click
 
-        GlobalVariables.eventID = 1
+        GlobalVariables.eventID = 1 ' Purely for testing purposes
         GetEventName() ' This is purely placeholder as we don't have a "starter" form yet to handle event names
         NewLap(riderText.Text, TimerValue.Text) ' Add the new lap (pass the timer value from here for maximum accuracy as the Sub will perform queries)
 
@@ -164,7 +169,13 @@ Public Class Form1
 
     Private Sub testFind_Click(sender As Object, e As EventArgs) Handles testFind.Click
 
-        findFunction("test2", "99:59:59")
+        Dim operations As New DBOperations
+        Dim dbReader As SQLiteDataReader
+        dbReader = operations.SelectQuery("SELECT * FROM riders WHERE riderID = 96")
+
+        While (dbReader.Read())
+            MessageBox.Show(dbReader("riderName")) ' Return the value
+        End While
 
     End Sub
 
@@ -183,6 +194,12 @@ Public Class Form1
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles Me.Load
 
         riderText.Focus()
+
+    End Sub
+
+    Private Sub pmButton_Click(sender As Object, e As EventArgs) Handles saveButton.Click
+
+        WritetoDatabase()
 
     End Sub
 End Class
