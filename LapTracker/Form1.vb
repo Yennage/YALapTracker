@@ -43,12 +43,7 @@ Public Class Form1
     Public Sub GetEventName() ' Used to query the events table for the name of the event
 
         Dim operations As New DBOperations
-        Dim dbReader As SQLiteDataReader
-        dbReader = operations.SelectQuery("SELECT * FROM events WHERE eventID =" & GlobalVariables.eventID)
-
-        While (dbReader.Read())
-            GlobalVariables.eventName = dbReader("eventName") ' Set our global variable to the queried event name
-        End While
+        GlobalVariables.eventName = operations.SelectQuery("SELECT eventName FROM events WHERE eventID =" & GlobalVariables.eventID, False) ' Update our global var
 
     End Sub
 
@@ -92,7 +87,7 @@ Public Class Form1
             ' We can't find a match so query the database to get the rider details
         Dim operations As New DBOperations
             Dim dbReader As SQLiteDataReader
-            dbReader = operations.SelectQuery("SELECT * FROM riders WHERE riderID =" & riderText.Text) ' Query the rider ID against the riders table
+            dbReader = operations.SelectQuery("SELECT * FROM riders WHERE riderID =" & riderText.Text, True) ' Query the rider ID against the riders table
 
             While (dbReader.Read())
                 riderName = dbReader("riderName") ' Return the value
@@ -170,12 +165,7 @@ Public Class Form1
     Private Sub testFind_Click(sender As Object, e As EventArgs) Handles testFind.Click
 
         Dim operations As New DBOperations
-        Dim dbReader As SQLiteDataReader
-        dbReader = operations.SelectQuery("SELECT * FROM riders WHERE riderID = 96")
-
-        While (dbReader.Read())
-            MessageBox.Show(dbReader("riderName")) ' Return the value
-        End While
+        MessageBox.Show(operations.SelectQuery("SELECT riderName FROM riders WHERE riderID = 96", False))
 
     End Sub
 
@@ -194,6 +184,7 @@ Public Class Form1
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles Me.Load
 
         riderText.Focus()
+        GlobalVariables.eventID = My.Settings.currenteventID
 
     End Sub
 

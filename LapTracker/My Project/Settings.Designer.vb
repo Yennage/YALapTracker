@@ -64,6 +64,18 @@ Namespace My
                 Return CType(Me("LaptrackerDBConnectionString"),String)
             End Get
         End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(), _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.Configuration.DefaultSettingValueAttribute("")> _
+        Public Property currenteventID() As String
+            Get
+                Return CType(Me("currenteventID"), String)
+            End Get
+            Set(value As String)
+                Me("currenteventID") = value
+            End Set
+        End Property
     End Class
 End Namespace
 
