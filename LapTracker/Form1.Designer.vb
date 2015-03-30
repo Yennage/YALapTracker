@@ -40,6 +40,7 @@ Partial Class Form1
         Me.testFind = New System.Windows.Forms.Button()
         Me.disclaimerLabel = New System.Windows.Forms.Label()
         Me.saveButton = New System.Windows.Forms.Button()
+        Me.BackgroundWorker1 = New System.ComponentModel.BackgroundWorker()
         Me.SuspendLayout()
         '
         'StartStopButton
@@ -169,6 +170,10 @@ Partial Class Form1
         Me.saveButton.Text = "Complete and Save"
         Me.saveButton.UseVisualStyleBackColor = True
         '
+        'BackgroundWorker1
+        '
+        Me.BackgroundWorker1.WorkerReportsProgress = True
+        '
         'Form1
         '
         Me.AcceptButton = Me.addButton
@@ -208,5 +213,6 @@ Partial Class Form1
     Friend WithEvents testFind As System.Windows.Forms.Button
     Friend WithEvents disclaimerLabel As System.Windows.Forms.Label
     Friend WithEvents saveButton As System.Windows.Forms.Button
+    Friend WithEvents BackgroundWorker1 As System.ComponentModel.BackgroundWorker
 
 End Class

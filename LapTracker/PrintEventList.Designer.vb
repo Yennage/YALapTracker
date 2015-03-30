@@ -32,6 +32,7 @@ Partial Class PrintEventList
         Me.eventList = New System.Windows.Forms.ListBox()
         Me.amClear = New System.Windows.Forms.Button()
         Me.pmClear = New System.Windows.Forms.Button()
+        Me.BackgroundWorker1 = New System.ComponentModel.BackgroundWorker()
         Me.SuspendLayout()
         '
         'cancelButton
@@ -122,6 +123,10 @@ Partial Class PrintEventList
         Me.pmClear.Text = "Clear"
         Me.pmClear.UseVisualStyleBackColor = True
         '
+        'BackgroundWorker1
+        '
+        Me.BackgroundWorker1.WorkerReportsProgress = True
+        '
         'PrintEventList
         '
         Me.AcceptButton = Me.printButton
@@ -155,4 +160,5 @@ Partial Class PrintEventList
     Friend WithEvents eventList As System.Windows.Forms.ListBox
     Friend WithEvents amClear As System.Windows.Forms.Button
     Friend WithEvents pmClear As System.Windows.Forms.Button
+    Friend WithEvents BackgroundWorker1 As System.ComponentModel.BackgroundWorker
 End Class

@@ -47,13 +47,13 @@ Public Class Form1
 
     End Sub
 
-    Sub FetchData() ' Quick little test of pulling data from an SQLite table (will be used for future printing functionality)
+    Sub FetchData(ByVal eventName As String) ' Quick little test of pulling data from an SQLite table (will be used for future printing functionality)
 
         Dim operations As New DBOperations
         Dim dbReader As SQLiteDataReader
         Dim currentRow(6) As String
 
-        dbReader = operations.SelectQuery("SELECT * FROM laps ORDER BY totalTime ASC", _
+        dbReader = operations.SelectQuery("SELECT * FROM laps WHERE eventName = """ & eventName & """ ORDER BY totalTime ASC", _
                                           True) ' This can be updated at a later date to fetch lap data from only certain events
 
         While (dbReader.Read())
@@ -97,29 +97,10 @@ Public Class Form1
 
     End Sub
 
-    Sub WritetoDatabase() ' Writes the data from a completed event to the SQLite laps table (move SQLite stuff over to a separate class)
-
-        Dim dbConnection As SQLiteConnection = New SQLiteConnection("URI=file:" & My.Computer.FileSystem.SpecialDirectories.MyDocuments & _
-                                               "\Visual Studio 2013\Projects\LapTracker\LaptrackerDB.s3db")
-        Dim insertCommand As SQLiteCommand = New SQLiteCommand("INSERT INTO laps (eventID, eventName, riderID, riderName, lapNumber, " & _
-                                                               "totalTime) VALUES (@eventID, @eventName, @riderID, @riderName, @lapNumber, " & _
-                                                               "@totalTime)", dbConnection) ' Build our query
-        insertCommand.Parameters.AddWithValue("@eventID", 1337) ' Add parameters
-        insertCommand.Parameters.AddWithValue("@eventName", "test event")
-        insertCommand.Parameters.AddWithValue("@riderID", 1337)
-        insertCommand.Parameters.AddWithValue("@riderName", "Yen Nage")
-        insertCommand.Parameters.AddWithValue("@lapNumber", 100)
-        insertCommand.Parameters.AddWithValue("@totalTime", 1000)
-        dbConnection.Open()
-        insertCommand.ExecuteNonQuery() ' Execute the query
-        MessageBox.Show("Write Completed")
-
-    End Sub
-
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles fetchButton.Click
 
         dataView.Items.Clear()
-        FetchData()
+        FetchEventDialog.Show()
 
     End Sub
 
@@ -180,7 +161,8 @@ Public Class Form1
 
     Private Sub pmButton_Click(sender As Object, e As EventArgs) Handles saveButton.Click
 
-        WritetoDatabase()
+        Dim operations As New DBOperations
+        operations.WriteEventtoDatabase() ' Save our current event to the SQLite laps table
 
     End Sub
 End Class
