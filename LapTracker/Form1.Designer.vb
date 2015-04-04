@@ -37,8 +37,6 @@ Partial Class Form1
         Me.totalTime = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.addButton = New System.Windows.Forms.Button()
         Me.riderText = New System.Windows.Forms.TextBox()
-        Me.testFind = New System.Windows.Forms.Button()
-        Me.disclaimerLabel = New System.Windows.Forms.Label()
         Me.saveButton = New System.Windows.Forms.Button()
         Me.BackgroundWorker1 = New System.ComponentModel.BackgroundWorker()
         Me.SuspendLayout()
@@ -70,9 +68,9 @@ Partial Class Form1
         '
         Me.fetchButton.Location = New System.Drawing.Point(12, 227)
         Me.fetchButton.Name = "fetchButton"
-        Me.fetchButton.Size = New System.Drawing.Size(75, 23)
+        Me.fetchButton.Size = New System.Drawing.Size(131, 23)
         Me.fetchButton.TabIndex = 2
-        Me.fetchButton.Text = "Fetch Data"
+        Me.fetchButton.Text = "Load AM Event Data"
         Me.fetchButton.UseVisualStyleBackColor = True
         '
         'dataView
@@ -142,25 +140,6 @@ Partial Class Form1
         Me.riderText.Size = New System.Drawing.Size(353, 21)
         Me.riderText.TabIndex = 0
         '
-        'testFind
-        '
-        Me.testFind.Location = New System.Drawing.Point(93, 227)
-        Me.testFind.Name = "testFind"
-        Me.testFind.Size = New System.Drawing.Size(75, 23)
-        Me.testFind.TabIndex = 6
-        Me.testFind.Text = "Test Class"
-        Me.testFind.UseVisualStyleBackColor = True
-        '
-        'disclaimerLabel
-        '
-        Me.disclaimerLabel.AutoSize = True
-        Me.disclaimerLabel.Location = New System.Drawing.Point(174, 232)
-        Me.disclaimerLabel.Name = "disclaimerLabel"
-        Me.disclaimerLabel.Size = New System.Drawing.Size(410, 13)
-        Me.disclaimerLabel.TabIndex = 7
-        Me.disclaimerLabel.Text = "This row of buttons is for development only and will be absent from release versi" & _
-    "ons"
-        '
         'saveButton
         '
         Me.saveButton.Location = New System.Drawing.Point(452, 256)
@@ -181,8 +160,6 @@ Partial Class Form1
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(592, 286)
         Me.Controls.Add(Me.saveButton)
-        Me.Controls.Add(Me.disclaimerLabel)
-        Me.Controls.Add(Me.testFind)
         Me.Controls.Add(Me.riderText)
         Me.Controls.Add(Me.addButton)
         Me.Controls.Add(Me.dataView)
@@ -210,8 +187,6 @@ Partial Class Form1
     Friend WithEvents addButton As System.Windows.Forms.Button
     Friend WithEvents riderText As System.Windows.Forms.TextBox
     Friend WithEvents riderClass As System.Windows.Forms.ColumnHeader
-    Friend WithEvents testFind As System.Windows.Forms.Button
-    Friend WithEvents disclaimerLabel As System.Windows.Forms.Label
     Friend WithEvents saveButton As System.Windows.Forms.Button
     Friend WithEvents BackgroundWorker1 As System.ComponentModel.BackgroundWorker
 

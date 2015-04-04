@@ -26,6 +26,18 @@ Public Class DBOperations
 
     End Function
 
+    Public Sub DeleteValue(ByVal command As String)
+
+        Dim dbConnection As SQLiteConnection = New SQLiteConnection("URI=file:" & My.Computer.FileSystem.SpecialDirectories.MyDocuments & _
+                                                "\Visual Studio 2013\Projects\LapTracker\LaptrackerDB.s3db") ' Build the database connection
+        dbConnection.Open() ' Open the connection
+        Dim dbCommand As SQLiteCommand = dbConnection.CreateCommand ' Create the command string
+        dbCommand.CommandText = command ' Set the command text to the string we've been passed
+        dbCommand.ExecuteNonQuery()
+        dbConnection.Close()
+
+    End Sub
+
     Public Sub WriteEventtoDatabase() ' Writes the data from a completed event to the SQLite laps table (move SQLite stuff over to a separate class)
 
         ' This needs to iterate through the list of laps and save each record to the laps table
@@ -44,6 +56,23 @@ Public Class DBOperations
         dbConnection.Open()
         insertCommand.ExecuteNonQuery() ' Execute the query
         MessageBox.Show("Write Completed")
+        dbConnection.Close()
+
+    End Sub
+
+    Public Sub AddRider(ByVal riderNumber As Integer, ByVal riderName As String, ByVal riderClass As String) ' Add a new rider to the riders table
+
+        Dim dbConnection As SQLiteConnection = New SQLiteConnection("URI=file:" & My.Computer.FileSystem.SpecialDirectories.MyDocuments & _
+                                               "\Visual Studio 2013\Projects\LapTracker\LaptrackerDB.s3db")
+        Dim insertCommand As SQLiteCommand = New SQLiteCommand("INSERT INTO riders (riderID, riderName, riderClass)" & _
+                                                               "VALUES (@riderID, @riderName, @riderClass)", dbConnection) ' Build our query
+
+        insertCommand.Parameters.AddWithValue("@riderID", riderNumber)
+        insertCommand.Parameters.AddWithValue("@riderName", riderName)
+        insertCommand.Parameters.AddWithValue("@riderClass", riderClass)
+        dbConnection.Open()
+        insertCommand.ExecuteNonQuery()
+        dbConnection.Close()
 
     End Sub
 End Class

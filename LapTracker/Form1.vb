@@ -106,7 +106,7 @@ Public Class Form1
 
     Private Sub Button1_Click_1(sender As Object, e As EventArgs) Handles addButton.Click
 
-        ' GlobalVariables.eventID = 1 ' Purely for testing purposes
+        GlobalVariables.eventID = 1 ' Purely for testing purposes
         GetEventName() ' This is purely placeholder as we don't have a "starter" form yet to handle event names
         NewLap(riderText.Text, TimerValue.Text) ' Add the new lap (pass the timer value from here for maximum accuracy as the Sub will perform queries)
 
@@ -132,13 +132,6 @@ Public Class Form1
         Return False ' If we can't find a match
 
     End Function
-
-    Private Sub testFind_Click(sender As Object, e As EventArgs) Handles testFind.Click
-
-        Dim operations As New DBOperations
-        MessageBox.Show(operations.SelectQuery("SELECT riderName FROM riders WHERE riderID = 96", False))
-
-    End Sub
 
     Private Sub riderText_KeyPress(sender As Object, e As KeyPressEventArgs) Handles riderText.KeyPress
 

@@ -18,4 +18,11 @@
         End If
 
     End Sub
+
+    Private Sub addRider_Click(sender As Object, e As EventArgs) Handles addRider.Click
+
+        Me.Hide()
+        ManageRiders.Show()
+
+    End Sub
 End Class

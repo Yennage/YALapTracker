@@ -117,10 +117,4 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="tableHeader" xml:space="preserve">
-    <value>&lt;html&gt;
-&lt;body&gt;
-&lt;h3 style="font-family:Tahoma;"&gt;Banovallum Motorcycle Club Results&amp;emsp;&amp;emsp;&amp;emsp;</value>
-    <comment>HTML header for all for print results</comment>
-  </data>
 </root>

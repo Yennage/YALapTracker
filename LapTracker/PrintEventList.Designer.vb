@@ -33,11 +33,13 @@ Partial Class PrintEventList
         Me.amClear = New System.Windows.Forms.Button()
         Me.pmClear = New System.Windows.Forms.Button()
         Me.BackgroundWorker1 = New System.ComponentModel.BackgroundWorker()
+        Me.Label4 = New System.Windows.Forms.Label()
+        Me.venueName = New System.Windows.Forms.TextBox()
         Me.SuspendLayout()
         '
         'cancelButton
         '
-        Me.cancelButton.Location = New System.Drawing.Point(505, 396)
+        Me.cancelButton.Location = New System.Drawing.Point(505, 418)
         Me.cancelButton.Name = "cancelButton"
         Me.cancelButton.Size = New System.Drawing.Size(75, 23)
         Me.cancelButton.TabIndex = 1
@@ -47,7 +49,7 @@ Partial Class PrintEventList
         'printButton
         '
         Me.printButton.Enabled = False
-        Me.printButton.Location = New System.Drawing.Point(407, 396)
+        Me.printButton.Location = New System.Drawing.Point(407, 418)
         Me.printButton.Name = "printButton"
         Me.printButton.Size = New System.Drawing.Size(92, 23)
         Me.printButton.TabIndex = 2
@@ -66,7 +68,7 @@ Partial Class PrintEventList
         'Label2
         '
         Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(12, 333)
+        Me.Label2.Location = New System.Drawing.Point(9, 354)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(57, 13)
         Me.Label2.TabIndex = 4
@@ -75,7 +77,7 @@ Partial Class PrintEventList
         'Label3
         '
         Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(12, 372)
+        Me.Label3.Location = New System.Drawing.Point(9, 383)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(56, 13)
         Me.Label3.TabIndex = 5
@@ -83,7 +85,7 @@ Partial Class PrintEventList
         '
         'amTextbox
         '
-        Me.amTextbox.Location = New System.Drawing.Point(75, 330)
+        Me.amTextbox.Location = New System.Drawing.Point(75, 351)
         Me.amTextbox.Name = "amTextbox"
         Me.amTextbox.ReadOnly = True
         Me.amTextbox.Size = New System.Drawing.Size(424, 21)
@@ -91,7 +93,7 @@ Partial Class PrintEventList
         '
         'pmTextbox
         '
-        Me.pmTextbox.Location = New System.Drawing.Point(75, 369)
+        Me.pmTextbox.Location = New System.Drawing.Point(75, 380)
         Me.pmTextbox.Name = "pmTextbox"
         Me.pmTextbox.ReadOnly = True
         Me.pmTextbox.Size = New System.Drawing.Size(424, 21)
@@ -107,7 +109,7 @@ Partial Class PrintEventList
         '
         'amClear
         '
-        Me.amClear.Location = New System.Drawing.Point(505, 328)
+        Me.amClear.Location = New System.Drawing.Point(505, 349)
         Me.amClear.Name = "amClear"
         Me.amClear.Size = New System.Drawing.Size(75, 23)
         Me.amClear.TabIndex = 9
@@ -116,7 +118,7 @@ Partial Class PrintEventList
         '
         'pmClear
         '
-        Me.pmClear.Location = New System.Drawing.Point(505, 367)
+        Me.pmClear.Location = New System.Drawing.Point(505, 378)
         Me.pmClear.Name = "pmClear"
         Me.pmClear.Size = New System.Drawing.Size(75, 23)
         Me.pmClear.TabIndex = 10
@@ -127,12 +129,30 @@ Partial Class PrintEventList
         '
         Me.BackgroundWorker1.WorkerReportsProgress = True
         '
+        'Label4
+        '
+        Me.Label4.AutoSize = True
+        Me.Label4.Location = New System.Drawing.Point(9, 327)
+        Me.Label4.Name = "Label4"
+        Me.Label4.Size = New System.Drawing.Size(41, 13)
+        Me.Label4.TabIndex = 11
+        Me.Label4.Text = "Venue:"
+        '
+        'venueName
+        '
+        Me.venueName.Location = New System.Drawing.Point(75, 324)
+        Me.venueName.Name = "venueName"
+        Me.venueName.Size = New System.Drawing.Size(424, 21)
+        Me.venueName.TabIndex = 12
+        '
         'PrintEventList
         '
         Me.AcceptButton = Me.printButton
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(592, 426)
+        Me.ClientSize = New System.Drawing.Size(592, 453)
+        Me.Controls.Add(Me.venueName)
+        Me.Controls.Add(Me.Label4)
         Me.Controls.Add(Me.pmClear)
         Me.Controls.Add(Me.amClear)
         Me.Controls.Add(Me.eventList)
@@ -161,4 +181,6 @@ Partial Class PrintEventList
     Friend WithEvents amClear As System.Windows.Forms.Button
     Friend WithEvents pmClear As System.Windows.Forms.Button
     Friend WithEvents BackgroundWorker1 As System.ComponentModel.BackgroundWorker
+    Friend WithEvents Label4 As System.Windows.Forms.Label
+    Friend WithEvents venueName As System.Windows.Forms.TextBox
 End Class

@@ -48,7 +48,7 @@ Public Class PrintEventList
 
     Public Function CheckText() ' Super simple function to check we have both an AM and PM event selected
 
-        If amTextbox.Text <> "" And pmTextbox.Text <> "" Then
+        If amTextbox.Text <> "" And pmTextbox.Text <> "" And venueName.Text <> "" Then ' Make sure that none of our textboxes are empty
             Return True
         Else : Return False
         End If
@@ -62,6 +62,12 @@ Public Class PrintEventList
     End Sub
 
     Private Sub pmTextbox_TextChanged(sender As Object, e As EventArgs) Handles pmTextbox.TextChanged
+
+        printButton.Enabled = CheckText()
+
+    End Sub
+
+    Private Sub venueName_TextChanged(sender As Object, e As EventArgs) Handles venueName.TextChanged
 
         printButton.Enabled = CheckText()
 
