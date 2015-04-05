@@ -44,13 +44,14 @@ Public Class DBOperations
 
         Dim dbConnection As SQLiteConnection = New SQLiteConnection("URI=file:" & My.Computer.FileSystem.SpecialDirectories.MyDocuments & _
                                                "\Visual Studio 2013\Projects\LapTracker\LaptrackerDB.s3db")
-        Dim insertCommand As SQLiteCommand = New SQLiteCommand("INSERT INTO laps (eventID, eventName, riderID, riderName, lapNumber, " & _
-                                                               "totalTime) VALUES (@eventID, @eventName, @riderID, @riderName, @lapNumber, " & _
+        Dim insertCommand As SQLiteCommand = New SQLiteCommand("INSERT INTO laps (eventID, eventName, riderID, riderName, riderClass, lapNumber, " & _
+                                                               "totalTime) VALUES (@eventID, @eventName, @riderID, @riderName, @riderClass, @lapNumber, " & _
                                                                "@totalTime)", dbConnection) ' Build our query
         insertCommand.Parameters.AddWithValue("@eventID", 1337) ' Add parameters
         insertCommand.Parameters.AddWithValue("@eventName", "test event")
         insertCommand.Parameters.AddWithValue("@riderID", 1337)
         insertCommand.Parameters.AddWithValue("@riderName", "Yen Nage")
+        insertCommand.Parameters.AddWithValue("@riderClass", "Novice")
         insertCommand.Parameters.AddWithValue("@lapNumber", 100)
         insertCommand.Parameters.AddWithValue("@totalTime", 1000)
         dbConnection.Open()

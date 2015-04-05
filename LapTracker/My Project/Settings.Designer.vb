@@ -91,6 +91,18 @@ Namespace My
                 Me("riderClasses") = value
             End Set
         End Property
+
+        <Global.System.Configuration.UserScopedSettingAttribute(), _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.Configuration.DefaultSettingValueAttribute("10")> _
+        Public Property pointsAllocation() As Integer
+            Get
+                Return CType(Me("pointsAllocation"), Integer)
+            End Get
+            Set(value As Integer)
+                Me("pointsAllocation") = value
+            End Set
+        End Property
     End Class
 End Namespace
 

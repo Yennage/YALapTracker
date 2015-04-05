@@ -51,14 +51,14 @@ Public Class Form1
 
         Dim operations As New DBOperations
         Dim dbReader As SQLiteDataReader
-        Dim currentRow(6) As String
+        Dim currentRow(7) As String
 
         dbReader = operations.SelectQuery("SELECT * FROM laps WHERE eventName = """ & eventName & """ ORDER BY totalTime ASC", _
                                           True) ' This can be updated at a later date to fetch lap data from only certain events
 
         While (dbReader.Read())
             currentRow = {dbReader("lapsID"), dbReader("eventID"), dbReader("eventName"), dbReader("riderID"), dbReader("riderName"), _
-                          dbReader("lapNumber"), dbReader("totalTime")} ' Build an array for the current row
+                          dbReader("riderClass"), dbReader("lapNumber"), dbReader("totalTime")} ' Build an array for the current row
             dataView.Items.Add(New ListViewItem(currentRow)) ' Update the listview
         End While
 

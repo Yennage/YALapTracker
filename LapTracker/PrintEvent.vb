@@ -1,8 +1,70 @@
-﻿Public Class PrintEvent
+﻿Imports System.Data.SQLite
+Public Class PrintEvent
 
-    Public Sub PrintEvent(ByVal venueName As String, ByVal amID As String, ByVal pmID As String) ' Handles printing event details to HTML and CSV
+    Public Class CurrentState
+        Public rowsPrinted As Integer ' The number of rows we've printed so far
+        Public totalRows As Integer ' The total number of rows we need to print
+    End Class
 
-        ' This will handle printing the event details to both an HTML table and a CSV file
+    Public Sub CommencePrinting(ByVal venueName As String, ByVal amID As String, ByVal pmID As String, _
+                                ByVal worker As System.ComponentModel.BackgroundWorker, ByVal e As System.ComponentModel.DoWorkEventArgs)
+        ' Handles printing event details to HTML and CSV
+
+        Dim operations As New DBOperations
+        Dim dbReader As SQLiteDataReader
+        Dim state As New CurrentState ' Used to push our current progress back to the UI thread
+        Dim currentRow(4) As String
+        Dim htmlOutput As String = My.Resources.tableHeader & Date.Today & "&emsp;&emsp;&emsp;Venue: " & venueName & "</br></br>" ' Add date and venue name to the table header
+        Dim tableHtml As String = "<table border=""1""style=""width:75%"">"
+        Dim tableColumns As String = "<tr><td>Rider No.</td><td>Rider Name</td><td>Morning Laps</td><td>Time</td><td>Afternoon Laps</td>" & _
+"<td>Time</td><td>Total Laps</td><td>Time</td><td>Final Position</td><td>Final Points</td></tr>" ' Our columns
+        Dim positionCounter As Integer
+        Dim pointsCounter As Integer
+        Dim amLaps As Integer = 0 ' The AM lap count
+        Dim amTime As TimeSpan ' The AM total time
+        Dim pmTime As TimeSpan ' The PM total time
+
+        state.totalRows = operations.SelectQuery("SELECT COUNT(*) FROM laps WHERE eventName = """ & pmID & """", False) ' Find our total number of rows
+        state.rowsPrinted = 0
+        worker.ReportProgress(0, state) ' Report the total number of rows we'll have to work through
+
+        For Each currentClass As String In My.Settings.riderClasses ' Iterate through all of our available rider classes
+
+            positionCounter = 0 ' Reset the positon variable
+            pointsCounter = My.Settings.pointsAllocation ' Reset the points counter variable
+            htmlOutput &= Chr(10) & tableHtml
+            htmlOutput &= Chr(10) & "<tr>Class: " & currentClass & "</tr>"
+            htmlOutput &= Chr(10) & tableColumns
+
+            dbReader = operations.SelectQuery("SELECT * FROM laps WHERE eventName = """ & pmID & """ AND riderClass = """ & currentClass & _
+                                              """ORDER BY lapNumber DESC", True)
+            While (dbReader.Read()) ' Iterate through all values returned by the current class
+                positionCounter += 1 ' Increment the position counter
+                currentRow = {dbReader("riderID"), dbReader("riderName"), dbReader("lapNumber"), dbReader("totalTime")}
+                amLaps = operations.SelectQuery("SELECT lapNumber FROM laps WHERE eventName = """ & amID & _
+                                                                        """ AND riderID = " & currentRow(0), False)
+                amTime = TimeSpan.Parse(operations.SelectQuery("SELECT totalTime FROM laps WHERE eventName = """ & amID & _
+                                                                        """ AND riderID = " & currentRow(0), False))
+                pmTime = TimeSpan.Parse(currentRow(3)) - amTime
+                htmlOutput &= Chr(10) & "<tr><td>" & Chr(10) & currentRow(0) & "</td>" ' Rider No
+                htmlOutput &= Chr(10) & "<td>" & currentRow(1) & "</td>" ' Rider Name
+                htmlOutput &= Chr(10) & "<td>" & amLaps & "</td>" ' Morning Laps
+                htmlOutput &= Chr(10) & "<td>" & amTime.ToString & "</td>" ' Morning Time
+                htmlOutput &= Chr(10) & "<td>" & CInt(currentRow(2)) - amLaps & "</td>" ' Afternoon Laps (Total - Morning Laps)
+                htmlOutput &= Chr(10) & "<td>" & pmTime.ToString & "</td>" ' Afternoon Time (Total - Morning Time)
+                htmlOutput &= Chr(10) & "<td>" & currentRow(2) & "</td>" ' Total Laps
+                htmlOutput &= Chr(10) & "<td>" & currentRow(3) & "</td>" ' Total Time
+                htmlOutput &= Chr(10) & "<td>" & positionCounter & "</td>" ' Final Position
+                htmlOutput &= Chr(10) & "<td>" & pointsCounter & "</td></tr>" ' Final Points
+                If pointsCounter >= 1 Then pointsCounter -= 1 ' Decrement the points counter if it won't create a negative value
+                state.rowsPrinted += 1
+                worker.ReportProgress(0, state)
+            End While
+
+            htmlOutput &= Chr(10) & "</table></br></br>" ' Close the table tag for this class
+        Next
+
+        My.Computer.FileSystem.WriteAllText(My.Computer.FileSystem.SpecialDirectories.Desktop & "\temp\testTable.html", htmlOutput, False)
 
     End Sub
 End Class

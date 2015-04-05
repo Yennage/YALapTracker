@@ -35,6 +35,10 @@ Partial Class PrintEventList
         Me.BackgroundWorker1 = New System.ComponentModel.BackgroundWorker()
         Me.Label4 = New System.Windows.Forms.Label()
         Me.venueName = New System.Windows.Forms.TextBox()
+        Me.StatusStrip1 = New System.Windows.Forms.StatusStrip()
+        Me.printProgress = New System.Windows.Forms.ToolStripProgressBar()
+        Me.ToolStripStatusLabel1 = New System.Windows.Forms.ToolStripStatusLabel()
+        Me.StatusStrip1.SuspendLayout()
         Me.SuspendLayout()
         '
         'cancelButton
@@ -145,12 +149,33 @@ Partial Class PrintEventList
         Me.venueName.Size = New System.Drawing.Size(424, 21)
         Me.venueName.TabIndex = 12
         '
+        'StatusStrip1
+        '
+        Me.StatusStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripStatusLabel1, Me.printProgress})
+        Me.StatusStrip1.Location = New System.Drawing.Point(0, 454)
+        Me.StatusStrip1.Name = "StatusStrip1"
+        Me.StatusStrip1.Size = New System.Drawing.Size(592, 22)
+        Me.StatusStrip1.TabIndex = 13
+        Me.StatusStrip1.Text = "StatusStrip1"
+        '
+        'printProgress
+        '
+        Me.printProgress.Name = "printProgress"
+        Me.printProgress.Size = New System.Drawing.Size(100, 16)
+        '
+        'ToolStripStatusLabel1
+        '
+        Me.ToolStripStatusLabel1.Name = "ToolStripStatusLabel1"
+        Me.ToolStripStatusLabel1.Size = New System.Drawing.Size(83, 17)
+        Me.ToolStripStatusLabel1.Text = "Print Progress:"
+        '
         'PrintEventList
         '
         Me.AcceptButton = Me.printButton
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(592, 453)
+        Me.ClientSize = New System.Drawing.Size(592, 476)
+        Me.Controls.Add(Me.StatusStrip1)
         Me.Controls.Add(Me.venueName)
         Me.Controls.Add(Me.Label4)
         Me.Controls.Add(Me.pmClear)
@@ -166,6 +191,8 @@ Partial Class PrintEventList
         Me.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Name = "PrintEventList"
         Me.Text = "Select the events you wish to print..."
+        Me.StatusStrip1.ResumeLayout(False)
+        Me.StatusStrip1.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -183,4 +210,7 @@ Partial Class PrintEventList
     Friend WithEvents BackgroundWorker1 As System.ComponentModel.BackgroundWorker
     Friend WithEvents Label4 As System.Windows.Forms.Label
     Friend WithEvents venueName As System.Windows.Forms.TextBox
+    Friend WithEvents StatusStrip1 As System.Windows.Forms.StatusStrip
+    Friend WithEvents printProgress As System.Windows.Forms.ToolStripProgressBar
+    Friend WithEvents ToolStripStatusLabel1 As System.Windows.Forms.ToolStripStatusLabel
 End Class

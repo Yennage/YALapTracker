@@ -27,6 +27,46 @@ Public Class PrintEventList
 
     End Sub
 
+    Sub StartThread()
+
+        Dim WC As New PrintEvent
+        BackgroundWorker1.RunWorkerAsync(WC)
+
+    End Sub
+
+    Private Sub printButton_Click(sender As Object, e As EventArgs) Handles printButton.Click
+
+        StartThread()
+
+    End Sub
+
+    Private Sub BackgroundWorker1_DoWork(sender As Object, e As System.ComponentModel.DoWorkEventArgs) Handles BackgroundWorker1.DoWork
+
+        Dim worker As System.ComponentModel.BackgroundWorker
+        worker = CType(sender, System.ComponentModel.BackgroundWorker)
+
+        Dim WC As PrintEvent = CType(e.Argument, PrintEvent)
+        WC.CommencePrinting(venueName.Text, amTextbox.Text, pmTextbox.Text, worker, e)
+
+    End Sub
+
+    Private Sub BackgroundWorker1_ProgressChanged(sender As Object, e As System.ComponentModel.ProgressChangedEventArgs) Handles BackgroundWorker1.ProgressChanged
+
+        Dim state As PrintEvent.CurrentState = _
+           CType(e.UserState, PrintEvent.CurrentState)
+        printProgress.Maximum = state.totalRows ' Update our UI elements
+        printProgress.Value = state.rowsPrinted
+
+    End Sub
+
+    Private Sub BackgroundWorker1_RunWorkerCompleted(sender As Object, e As System.ComponentModel.RunWorkerCompletedEventArgs) Handles BackgroundWorker1.RunWorkerCompleted
+
+        If e.Error IsNot Nothing Then
+            MsgBox("Error: " & e.Error.Message)
+        End If
+
+    End Sub
+
     Private Sub amClear_Click(sender As Object, e As EventArgs) Handles amClear.Click
 
         amTextbox.Text = ""
