@@ -76,6 +76,12 @@ Public Class ManageRiders
 
     Private Sub riderName_TextChanged(sender As Object, e As EventArgs) Handles riderName.TextChanged
 
+        If riderName.Text.Contains("'") Or riderName.Text.Contains("""") Then ' Make sure we can't enter characters that will throw an SQLite error
+            textTooltip.Show("Characters ' and """" are invalid.", Label2, 1500)
+            riderName.Text = riderName.Text.Replace("'", "")
+            riderName.Text = riderName.Text.Replace("""", "")
+        End If
+
         addButton.Enabled = CheckText()
 
     End Sub
@@ -88,13 +94,36 @@ Public Class ManageRiders
 
     Private Sub addButton_Click(sender As Object, e As EventArgs) Handles addButton.Click
 
+        Dim matchedRider As String = "" ' The name of the rider who matches the ID check (for user output purposes only)
         Dim operations As New DBOperations
-        operations.AddRider(CInt(riderNumber.Text), riderName.Text, riderClass.SelectedItem) ' Add our new rider to the database
-        FetchRiders() ' Refresh the list
-        riderNumber.Clear()
-        riderName.Clear()
+
+        If CheckRiders(riderNumber.Text, matchedRider) = False Then
+            operations.AddRider(CInt(riderNumber.Text), riderName.Text, riderClass.SelectedItem) ' Add our new rider to the database
+            FetchRiders() ' Refresh the list
+            riderNumber.Clear()
+            riderName.Clear()
+        Else
+            MessageBox.Show("Rider No: " & riderNumber.Text & " already exists in the database as: " & matchedRider & "." & Chr(10) & _
+                            Chr(10) & "Please select a different rider number.", "Rider No Already Exists...", MessageBoxButtons.OK)
+            riderNumber.Clear()
+            riderNumber.Focus()
+        End If
 
     End Sub
+
+    Public Function CheckRiders(ByVal riderID As String, ByRef riderName As String) ' Check to make sure the rider ID we're trying to add doesn't already exist
+
+        For Each currentRow As ListViewItem In riderList.Items ' Iterate through our riders list
+            If riderID = currentRow.SubItems(0).Text Then ' We've found a match
+                riderName = currentRow.SubItems(1).Text
+                Return True
+                Exit Function
+            End If
+        Next
+
+        Return False
+
+    End Function
 
     Private Sub deleteRider_Click(sender As Object, e As EventArgs) Handles deleteRider.Click
 

@@ -22,6 +22,7 @@ Partial Class ManageRiders
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
+        Me.components = New System.ComponentModel.Container()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.riderNumber = New System.Windows.Forms.TextBox()
@@ -36,6 +37,7 @@ Partial Class ManageRiders
         Me.riderNo = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.ridersName = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.ridersClass = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
+        Me.textTooltip = New System.Windows.Forms.ToolTip(Me.components)
         Me.SuspendLayout()
         '
         'Label1
@@ -156,6 +158,11 @@ Partial Class ManageRiders
         Me.ridersClass.Text = "Rider Class"
         Me.ridersClass.Width = 200
         '
+        'textTooltip
+        '
+        Me.textTooltip.ToolTipIcon = System.Windows.Forms.ToolTipIcon.Warning
+        Me.textTooltip.ToolTipTitle = "Invalid Character"
+        '
         'ManageRiders
         '
         Me.AcceptButton = Me.addButton
@@ -194,4 +201,5 @@ Partial Class ManageRiders
     Friend WithEvents riderNo As System.Windows.Forms.ColumnHeader
     Friend WithEvents ridersName As System.Windows.Forms.ColumnHeader
     Friend WithEvents ridersClass As System.Windows.Forms.ColumnHeader
+    Friend WithEvents textTooltip As System.Windows.Forms.ToolTip
 End Class

@@ -12,13 +12,11 @@ Public Class Form1
         If LapTimer.Enabled = True Then ' Simple if statement for our dual usage start/stop button
             StartStopButton.Text = "Start Timer"
             LapTimer.Enabled = False
-            TimerValue.Visible = False ' Hide the time counter label
         Else
             StartStopButton.Text = "Stop Timer"
             GlobalVariables.elapsedSeconds = 0 ' Reset the variable
             LapTimer.Enabled = True
             TimerValue.Text = "00:00:00" ' Prevents the label showing with placeholder value of "No Time Elapsed" for the first second
-            TimerValue.Visible = True ' Show the time counter label
         End If
 
     End Sub
@@ -59,7 +57,7 @@ Public Class Form1
         While (dbReader.Read())
             ' Below placeholder will be replaced with the global eventName variable once testing is complete
             currentRow = {dbReader("eventID"), GlobalVariables.eventName, dbReader("riderID"), dbReader("riderName"), _
-                          dbReader("riderClass"), dbReader("lapNumber"), dbReader("totalTime")} ' Build an array for the current row
+                          dbReader("riderClass"), dbReader("lapNumber"), "00:00:00"} ' Event name is our current event and event time is reset
             dataView.Items.Add(New ListViewItem(currentRow)) ' Update the listview
         End While
 
@@ -158,6 +156,7 @@ Public Class Form1
 
         If MessageBox.Show("Are you sure you want to complete this event?", "Confirm completion...", MessageBoxButtons.YesNo, _
                           MessageBoxIcon.Information) = Windows.Forms.DialogResult.Yes Then
+            ' TODO: Multithread this operation
             Dim operations As New DBOperations
             operations.WriteEventtoDatabase() ' Save our current event to the SQLite laps table
         End If

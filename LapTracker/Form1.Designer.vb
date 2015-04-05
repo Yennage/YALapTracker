@@ -59,10 +59,9 @@ Partial Class Form1
         Me.TimerValue.AutoSize = True
         Me.TimerValue.Location = New System.Drawing.Point(93, 17)
         Me.TimerValue.Name = "TimerValue"
-        Me.TimerValue.Size = New System.Drawing.Size(83, 13)
+        Me.TimerValue.Size = New System.Drawing.Size(51, 13)
         Me.TimerValue.TabIndex = 1
-        Me.TimerValue.Text = "No time elapsed"
-        Me.TimerValue.Visible = False
+        Me.TimerValue.Text = "00:00:00"
         '
         'fetchButton
         '

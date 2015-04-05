@@ -36,8 +36,8 @@ Partial Class PrintEventList
         Me.Label4 = New System.Windows.Forms.Label()
         Me.venueName = New System.Windows.Forms.TextBox()
         Me.StatusStrip1 = New System.Windows.Forms.StatusStrip()
-        Me.printProgress = New System.Windows.Forms.ToolStripProgressBar()
         Me.ToolStripStatusLabel1 = New System.Windows.Forms.ToolStripStatusLabel()
+        Me.printProgress = New System.Windows.Forms.ToolStripProgressBar()
         Me.StatusStrip1.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -158,16 +158,16 @@ Partial Class PrintEventList
         Me.StatusStrip1.TabIndex = 13
         Me.StatusStrip1.Text = "StatusStrip1"
         '
-        'printProgress
-        '
-        Me.printProgress.Name = "printProgress"
-        Me.printProgress.Size = New System.Drawing.Size(100, 16)
-        '
         'ToolStripStatusLabel1
         '
         Me.ToolStripStatusLabel1.Name = "ToolStripStatusLabel1"
         Me.ToolStripStatusLabel1.Size = New System.Drawing.Size(83, 17)
         Me.ToolStripStatusLabel1.Text = "Print Progress:"
+        '
+        'printProgress
+        '
+        Me.printProgress.Name = "printProgress"
+        Me.printProgress.Size = New System.Drawing.Size(100, 16)
         '
         'PrintEventList
         '
