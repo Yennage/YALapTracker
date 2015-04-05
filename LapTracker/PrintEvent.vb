@@ -45,15 +45,15 @@ Public Class PrintEvent
                                                                         """ AND riderID = " & currentRow(0), False)
                 amTime = TimeSpan.Parse(operations.SelectQuery("SELECT totalTime FROM laps WHERE eventName = """ & amID & _
                                                                         """ AND riderID = " & currentRow(0), False))
-                pmTime = TimeSpan.Parse(currentRow(3)) - amTime
+                pmTime = TimeSpan.Parse(currentRow(3))
                 htmlOutput &= Chr(10) & "<tr><td>" & Chr(10) & currentRow(0) & "</td>" ' Rider No
                 htmlOutput &= Chr(10) & "<td>" & currentRow(1) & "</td>" ' Rider Name
                 htmlOutput &= Chr(10) & "<td>" & amLaps & "</td>" ' Morning Laps
                 htmlOutput &= Chr(10) & "<td>" & amTime.ToString & "</td>" ' Morning Time
                 htmlOutput &= Chr(10) & "<td>" & CInt(currentRow(2)) - amLaps & "</td>" ' Afternoon Laps (Total - Morning Laps)
-                htmlOutput &= Chr(10) & "<td>" & pmTime.ToString & "</td>" ' Afternoon Time (Total - Morning Time)
+                htmlOutput &= Chr(10) & "<td>" & pmTime.ToString & "</td>" ' Afternoon Time
                 htmlOutput &= Chr(10) & "<td>" & currentRow(2) & "</td>" ' Total Laps
-                htmlOutput &= Chr(10) & "<td>" & currentRow(3) & "</td>" ' Total Time
+                htmlOutput &= Chr(10) & "<td>" & (amTime + pmTime).ToString & "</td>" ' Total Time
                 htmlOutput &= Chr(10) & "<td>" & positionCounter & "</td>" ' Final Position
                 htmlOutput &= Chr(10) & "<td>" & pointsCounter & "</td></tr>" ' Final Points
                 If pointsCounter >= 1 Then pointsCounter -= 1 ' Decrement the points counter if it won't create a negative value
