@@ -58,7 +58,7 @@ Public Class Form1
 
         While (dbReader.Read())
             ' Below placeholder will be replaced with the global eventName variable once testing is complete
-            currentRow = {dbReader("eventID"), "PLACEHOLDER", dbReader("riderID"), dbReader("riderName"), _
+            currentRow = {dbReader("eventID"), GlobalVariables.eventName, dbReader("riderID"), dbReader("riderName"), _
                           dbReader("riderClass"), dbReader("lapNumber"), dbReader("totalTime")} ' Build an array for the current row
             dataView.Items.Add(New ListViewItem(currentRow)) ' Update the listview
         End While
@@ -107,9 +107,10 @@ Public Class Form1
 
     Private Sub Button1_Click_1(sender As Object, e As EventArgs) Handles addButton.Click
 
-        GlobalVariables.eventID = 1 ' Purely for testing purposes
+        ' GlobalVariables.eventID = 1 ' Purely for testing purposes
         GlobalVariables.eventName = GetEventName() ' This is purely placeholder as we don't have a "starter" form yet to handle event names
         NewLap(riderText.Text, TimerValue.Text) ' Add the new lap (pass the timer value from here for maximum accuracy as the Sub will perform queries)
+        riderText.Clear() ' Clear the textbox for the benefit of the user
 
     End Sub
 
@@ -155,8 +156,11 @@ Public Class Form1
 
     Private Sub pmButton_Click(sender As Object, e As EventArgs) Handles saveButton.Click
 
-        Dim operations As New DBOperations
-        operations.WriteEventtoDatabase() ' Save our current event to the SQLite laps table
+        If MessageBox.Show("Are you sure you want to complete this event?", "Confirm completion...", MessageBoxButtons.YesNo, _
+                          MessageBoxIcon.Information) = Windows.Forms.DialogResult.Yes Then
+            Dim operations As New DBOperations
+            operations.WriteEventtoDatabase() ' Save our current event to the SQLite laps table
+        End If
 
     End Sub
 End Class

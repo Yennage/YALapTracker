@@ -44,18 +44,24 @@ Public Class DBOperations
 
         Dim dbConnection As SQLiteConnection = New SQLiteConnection("URI=file:" & My.Computer.FileSystem.SpecialDirectories.MyDocuments & _
                                                "\Visual Studio 2013\Projects\LapTracker\LaptrackerDB.s3db")
+        dbConnection.Open()
         Dim insertCommand As SQLiteCommand = New SQLiteCommand("INSERT INTO laps (eventID, eventName, riderID, riderName, riderClass, lapNumber, " & _
                                                                "totalTime) VALUES (@eventID, @eventName, @riderID, @riderName, @riderClass, @lapNumber, " & _
                                                                "@totalTime)", dbConnection) ' Build our query
-        insertCommand.Parameters.AddWithValue("@eventID", 1337) ' Add parameters
-        insertCommand.Parameters.AddWithValue("@eventName", "test event")
-        insertCommand.Parameters.AddWithValue("@riderID", 1337)
-        insertCommand.Parameters.AddWithValue("@riderName", "Yen Nage")
-        insertCommand.Parameters.AddWithValue("@riderClass", "Novice")
-        insertCommand.Parameters.AddWithValue("@lapNumber", 100)
-        insertCommand.Parameters.AddWithValue("@totalTime", 1000)
-        dbConnection.Open()
-        insertCommand.ExecuteNonQuery() ' Execute the query
+
+        For Each currentRow As ListViewItem In Form1.dataView.Items
+
+            insertCommand.Parameters.AddWithValue("@eventID", currentRow.SubItems(0).Text) ' Add parameters
+            insertCommand.Parameters.AddWithValue("@eventName", currentRow.SubItems(1).Text)
+            insertCommand.Parameters.AddWithValue("@riderID", currentRow.SubItems(2).Text)
+            insertCommand.Parameters.AddWithValue("@riderName", currentRow.SubItems(3).Text)
+            insertCommand.Parameters.AddWithValue("@riderClass", currentRow.SubItems(4).Text)
+            insertCommand.Parameters.AddWithValue("@lapNumber", currentRow.SubItems(5).Text)
+            insertCommand.Parameters.AddWithValue("@totalTime", currentRow.SubItems(6).Text)
+            insertCommand.ExecuteNonQuery() ' Execute the query
+
+        Next
+
         MessageBox.Show("Write Completed")
         dbConnection.Close()
 
