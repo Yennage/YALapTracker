@@ -68,15 +68,16 @@ Public Class Form1
         ' Once the event is complete, the data will simply need to be written to the SQLite DB as an "archive" ready for future printing with a query
 
         Dim newLap(6) As String ' The array for the row we're going to be adding
+        Dim newAmendment(5) As String ' The array for our latest change listview
         Dim riderName As String = ""
         Dim riderClass As String = ""
 
-        If findFunction(riderText.Text, lapTime) = False Then ' Try and match the riderID to an existing entry in the listview
+        If findFunction(riderID, lapTime) = False Then ' Try and match the riderID to an existing entry in the listview
 
             ' We can't find a match so query the database to get the rider details
             Dim operations As New DBOperations
             Dim dbReader As SQLiteDataReader
-            dbReader = operations.SelectQuery("SELECT * FROM riders WHERE riderID =" & riderText.Text, True) ' Query the rider ID against the riders table
+            dbReader = operations.SelectQuery("SELECT * FROM riders WHERE riderID =" & riderID, True) ' Query the rider ID against the riders table
 
             While (dbReader.Read())
                 riderName = dbReader("riderName") ' Return the value
@@ -87,14 +88,76 @@ Public Class Form1
                 MessageBox.Show("Rider ID: " & riderID & " not found in riders database table.", "Rider Not Found...", MessageBoxButtons.OK, _
                                 MessageBoxIcon.Warning) ' Update the user
                 riderText.Clear() ' Clear the textbox to ensure a fast workflow
+                riderText.Focus() ' Helpful refocus for the user 
             Else ' If the query returns a match
                 newLap = {GlobalVariables.eventID, GlobalVariables.eventName, riderID, riderName, _
                           riderClass, "1", lapTime} ' Build the array (lap number of 1)
                 dataView.Items.Add(New ListViewItem(newLap)) ' Add the new lap details to the listview
+                newAmendment = {"Added", riderID, 0, 1, "00:00:00", lapTime} ' We're adding a new rider with no previous times
+                UpdateHistory(newAmendment) ' Push our new update to the UI
             End If
         End If ' If the function returns true then no updates or SQLite queries are required
 
     End Sub
+
+    Sub UpdateHistory(ByVal latestChange()) ' Updates the UI element for our change history
+
+        If changeList.Items.Count = 5 Then ' If we already have 5 items in our change history...
+            changeList.Items.RemoveAt(4) ' ...remove our last one
+        End If
+
+        changeList.Items.Insert(0, New ListViewItem(latestChange)) ' Add our new change to the top of the listview
+
+    End Sub
+
+    Sub UndoChange(ByVal changeIndex As Integer)
+
+        Dim newAmendment(5) As String ' Used for tracking amendment changes
+
+        For Each currentRow As ListViewItem In dataView.Items ' Iterate through our laps listview
+            If changeList.Items(changeIndex).SubItems(1).Text = currentRow.SubItems(2).Text Then ' If the rider ID matches
+                If changeList.Items(changeIndex).SubItems(0).Text = "Added" Then ' We can just remove the value as there isn't a previous laptime
+                    changeList.Items.RemoveAt(changeIndex)
+                    dataView.Items.RemoveAt(currentRow.Index)
+                Else
+                    newAmendment = {"Updated", currentRow.SubItems(2).Text, currentRow.SubItems(5).Text, changeList.Items(changeIndex).SubItems(2).Text, _
+                                    currentRow.SubItems(6).Text, changeList.Items(changeIndex).SubItems(4).Text}
+                    currentRow.SubItems(5).Text = changeList.Items(changeIndex).SubItems(2).Text ' Change the lap count to the old lap count
+                    currentRow.SubItems(6).Text = changeList.Items(changeIndex).SubItems(4).Text ' Change the lap time to the old time
+                    UpdateHistory(newAmendment)
+                End If
+                Exit For
+            End If
+        Next
+
+    End Sub
+
+    Sub AmendChange(ByVal changeIndex As Integer, ByVal riderID As String)
+
+        Dim newAmendment(5) As String ' Used for tracking amendment changes
+        Dim oldTime As String = changeList.Items(changeIndex).SubItems(5).Text ' Important we pull this before deleting the changelist item
+
+        For Each currentRow As ListViewItem In dataView.Items ' Iterate through our laps listview
+            If changeList.Items(changeIndex).SubItems(1).Text = currentRow.SubItems(2).Text Then ' If the rider ID matches
+
+                If changeList.Items(changeIndex).SubItems(0).Text = "Updated" Then ' If the amendment has old lap data associated with it
+                    newAmendment = {"Updated", currentRow.SubItems(2).Text, currentRow.SubItems(5).Text, changeList.Items(changeIndex).SubItems(2).Text, _
+                                    currentRow.SubItems(6).Text, changeList.Items(changeIndex).SubItems(4).Text}
+                    currentRow.SubItems(5).Text = changeList.Items(changeIndex).SubItems(2).Text ' Change the lap count to the old lap count
+                    currentRow.SubItems(6).Text = changeList.Items(changeIndex).SubItems(4).Text ' Change the lap time to the old time
+                    UpdateHistory(newAmendment)
+                    Exit For ' We can stop looping now
+                Else
+                    dataView.Items.RemoveAt(currentRow.Index) ' If it's a new lap we can just remove it
+                    changeList.Items.RemoveAt(changeIndex) ' We don't want to be dealing with undoing deletions so just remove it
+                End If
+
+            End If
+        Next
+        NewLap(riderID, oldTime) ' Amend our data using the new lap function, passing rider ID and laptime
+
+    End Sub
+
 
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles fetchButton.Click
 
@@ -106,7 +169,7 @@ Public Class Form1
     Private Sub Button1_Click_1(sender As Object, e As EventArgs) Handles addButton.Click
 
         ' GlobalVariables.eventID = 1 ' Purely for testing purposes
-        GlobalVariables.eventName = GetEventName() ' This is purely placeholder as we don't have a "starter" form yet to handle event names
+        If GlobalVariables.eventName = "" Then GlobalVariables.eventName = GetEventName() ' This is purely placeholder as we don't have a "starter" form yet to handle event names
         NewLap(riderText.Text, TimerValue.Text) ' Add the new lap (pass the timer value from here for maximum accuracy as the Sub will perform queries)
         riderText.Clear() ' Clear the textbox for the benefit of the user
 
@@ -115,14 +178,18 @@ Public Class Form1
     Public Function findFunction(ByVal searchText As String, ByVal lapTime As String)
 
         Dim lapCount As Integer = 0
-        Dim matchFound As Boolean = False
+        Dim oldTime As String
+        Dim newAmendment(5) As String ' The array for our latest change listview
 
         For Each currentRow As ListViewItem In dataView.Items ' Iterate through our laps listview
 
             If searchText = currentRow.SubItems(2).Text Then ' If the riderID matches
                 lapCount = CInt(currentRow.SubItems(5).Text) ' Pull the current lapcount
+                oldTime = currentRow.SubItems(6).Text ' Grab the old laptime before we replace it
                 currentRow.SubItems(5).Text = lapCount + 1 ' Increment the lapcount in the listview
                 currentRow.SubItems(6).Text = lapTime ' Update the laptime (passed from the NewLap sub to ensure both accuracy and precision)
+                newAmendment = {"Updated", searchText, lapCount, lapCount + 1, oldTime, lapTime}
+                UpdateHistory(newAmendment)
                 Return True
                 Exit Function ' Break this statement and exit the function if we find a match as the UI update is handled here
             End If
@@ -160,6 +227,60 @@ Public Class Form1
             Dim operations As New DBOperations
             operations.WriteEventtoDatabase() ' Save our current event to the SQLite laps table
         End If
+
+    End Sub
+
+    Private Sub amendText_KeyPress(sender As Object, e As KeyPressEventArgs) Handles amendText.KeyPress
+
+        ' Prevent non-numeric characters from being entered into the amend ID textbox
+        If e.KeyChar <> ChrW(Keys.Back) Then
+            If Char.IsNumber(e.KeyChar) Then
+            Else
+                e.Handled = True
+            End If
+        End If
+
+    End Sub
+
+    Private Sub undoButton_Click(sender As Object, e As EventArgs) Handles undoButton.Click
+
+        Try
+            UndoChange(changeList.FocusedItem.Index)
+        Catch ex As System.NullReferenceException ' If we don't have a valid item focused
+            MessageBox.Show("No change has been selected. Please select a row to amend before continuing.", "Blank Row Selection", _
+                        MessageBoxButtons.OK, MessageBoxIcon.Warning) ' Update the user
+        End Try
+
+    End Sub
+
+    Private Sub alterButton_Click(sender As Object, e As EventArgs) Handles alterButton.Click
+
+        Try
+            AmendChange(changeList.FocusedItem.Index, amendText.Text)
+        Catch ex As System.NullReferenceException ' If we don't have a valid item focused
+            MessageBox.Show("No change has been selected. Please select a row to amend before continuing.", "Blank Row Selection", _
+                        MessageBoxButtons.OK, MessageBoxIcon.Warning) ' Update the user
+        End Try
+
+    End Sub
+
+    Private Sub amendText_TextChanged(sender As Object, e As EventArgs) Handles amendText.TextChanged
+
+        If amendText.Text = "" Then
+            alterButton.Enabled = False ' Prevent our alter button from being pressed without a valid input
+        Else
+            alterButton.Enabled = True
+        End If
+
+    End Sub
+
+    Private Sub changeList_SelectedIndexChanged(sender As Object, e As EventArgs) Handles changeList.SelectedIndexChanged
+
+        Try
+            historyLabel.Text = "Last 5 Inputs: Currently selected Rider No. " & changeList.FocusedItem.SubItems(1).Text & ", lap times: " & _
+            changeList.FocusedItem.SubItems(4).Text & " to " & changeList.FocusedItem.SubItems(5).Text
+        Catch ex As System.NullReferenceException ' If we don't have a valid item focused
+        End Try
 
     End Sub
 End Class
