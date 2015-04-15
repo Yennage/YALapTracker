@@ -34,14 +34,15 @@ Partial Class EventDialog
         Me.Label1.AutoSize = True
         Me.Label1.Location = New System.Drawing.Point(9, 9)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(268, 13)
+        Me.Label1.Size = New System.Drawing.Size(391, 26)
         Me.Label1.TabIndex = 1
-        Me.Label1.Text = "Placeholder for a label explaining about event creation"
+        Me.Label1.Text = "Enter a name for your event below. For ease of reference, remember to include" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "AM" & _
+    " or PM in the name."
         '
         'Label3
         '
         Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(9, 34)
+        Me.Label3.Location = New System.Drawing.Point(9, 48)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(69, 13)
         Me.Label3.TabIndex = 4
@@ -49,7 +50,7 @@ Partial Class EventDialog
         '
         'nameTextbox
         '
-        Me.nameTextbox.Location = New System.Drawing.Point(12, 50)
+        Me.nameTextbox.Location = New System.Drawing.Point(12, 64)
         Me.nameTextbox.Name = "nameTextbox"
         Me.nameTextbox.Size = New System.Drawing.Size(411, 21)
         Me.nameTextbox.TabIndex = 5
@@ -58,7 +59,7 @@ Partial Class EventDialog
         '
         Me.Cancel_Button.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.Cancel_Button.DialogResult = System.Windows.Forms.DialogResult.Cancel
-        Me.Cancel_Button.Location = New System.Drawing.Point(356, 80)
+        Me.Cancel_Button.Location = New System.Drawing.Point(356, 91)
         Me.Cancel_Button.Name = "Cancel_Button"
         Me.Cancel_Button.Size = New System.Drawing.Size(67, 23)
         Me.Cancel_Button.TabIndex = 1
@@ -68,7 +69,7 @@ Partial Class EventDialog
         '
         Me.OK_Button.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.OK_Button.Enabled = False
-        Me.OK_Button.Location = New System.Drawing.Point(257, 80)
+        Me.OK_Button.Location = New System.Drawing.Point(257, 91)
         Me.OK_Button.Name = "OK_Button"
         Me.OK_Button.Size = New System.Drawing.Size(93, 23)
         Me.OK_Button.TabIndex = 0
@@ -80,7 +81,7 @@ Partial Class EventDialog
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.CancelButton = Me.Cancel_Button
-        Me.ClientSize = New System.Drawing.Size(435, 115)
+        Me.ClientSize = New System.Drawing.Size(435, 124)
         Me.Controls.Add(Me.Cancel_Button)
         Me.Controls.Add(Me.OK_Button)
         Me.Controls.Add(Me.nameTextbox)

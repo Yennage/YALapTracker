@@ -43,6 +43,7 @@ Partial Class PrintEventList
         '
         'cancelButton
         '
+        Me.cancelButton.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.cancelButton.Location = New System.Drawing.Point(505, 418)
         Me.cancelButton.Name = "cancelButton"
         Me.cancelButton.Size = New System.Drawing.Size(75, 23)
@@ -52,6 +53,7 @@ Partial Class PrintEventList
         '
         'printButton
         '
+        Me.printButton.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.printButton.Enabled = False
         Me.printButton.Location = New System.Drawing.Point(407, 418)
         Me.printButton.Name = "printButton"
@@ -71,6 +73,7 @@ Partial Class PrintEventList
         '
         'Label2
         '
+        Me.Label2.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.Label2.AutoSize = True
         Me.Label2.Location = New System.Drawing.Point(9, 354)
         Me.Label2.Name = "Label2"
@@ -80,6 +83,7 @@ Partial Class PrintEventList
         '
         'Label3
         '
+        Me.Label3.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.Label3.AutoSize = True
         Me.Label3.Location = New System.Drawing.Point(9, 383)
         Me.Label3.Name = "Label3"
@@ -89,6 +93,8 @@ Partial Class PrintEventList
         '
         'amTextbox
         '
+        Me.amTextbox.Anchor = CType(((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.amTextbox.Location = New System.Drawing.Point(75, 351)
         Me.amTextbox.Name = "amTextbox"
         Me.amTextbox.ReadOnly = True
@@ -97,6 +103,8 @@ Partial Class PrintEventList
         '
         'pmTextbox
         '
+        Me.pmTextbox.Anchor = CType(((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.pmTextbox.Location = New System.Drawing.Point(75, 380)
         Me.pmTextbox.Name = "pmTextbox"
         Me.pmTextbox.ReadOnly = True
@@ -105,6 +113,9 @@ Partial Class PrintEventList
         '
         'eventList
         '
+        Me.eventList.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.eventList.FormattingEnabled = True
         Me.eventList.Location = New System.Drawing.Point(12, 25)
         Me.eventList.Name = "eventList"
@@ -113,6 +124,7 @@ Partial Class PrintEventList
         '
         'amClear
         '
+        Me.amClear.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.amClear.Location = New System.Drawing.Point(505, 349)
         Me.amClear.Name = "amClear"
         Me.amClear.Size = New System.Drawing.Size(75, 23)
@@ -122,6 +134,7 @@ Partial Class PrintEventList
         '
         'pmClear
         '
+        Me.pmClear.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.pmClear.Location = New System.Drawing.Point(505, 378)
         Me.pmClear.Name = "pmClear"
         Me.pmClear.Size = New System.Drawing.Size(75, 23)
@@ -135,6 +148,7 @@ Partial Class PrintEventList
         '
         'Label4
         '
+        Me.Label4.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.Label4.AutoSize = True
         Me.Label4.Location = New System.Drawing.Point(9, 327)
         Me.Label4.Name = "Label4"
@@ -144,6 +158,8 @@ Partial Class PrintEventList
         '
         'venueName
         '
+        Me.venueName.Anchor = CType(((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.venueName.Location = New System.Drawing.Point(75, 324)
         Me.venueName.Name = "venueName"
         Me.venueName.Size = New System.Drawing.Size(424, 21)

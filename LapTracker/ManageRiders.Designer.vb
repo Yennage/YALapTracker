@@ -42,6 +42,7 @@ Partial Class ManageRiders
         '
         'Label1
         '
+        Me.Label1.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.Label1.AutoSize = True
         Me.Label1.Location = New System.Drawing.Point(12, 318)
         Me.Label1.Name = "Label1"
@@ -51,6 +52,7 @@ Partial Class ManageRiders
         '
         'Label2
         '
+        Me.Label2.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.Label2.AutoSize = True
         Me.Label2.Location = New System.Drawing.Point(12, 345)
         Me.Label2.Name = "Label2"
@@ -60,6 +62,8 @@ Partial Class ManageRiders
         '
         'riderNumber
         '
+        Me.riderNumber.Anchor = CType(((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.riderNumber.Location = New System.Drawing.Point(84, 315)
         Me.riderNumber.Name = "riderNumber"
         Me.riderNumber.Size = New System.Drawing.Size(496, 21)
@@ -67,6 +71,8 @@ Partial Class ManageRiders
         '
         'riderName
         '
+        Me.riderName.Anchor = CType(((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.riderName.Location = New System.Drawing.Point(84, 342)
         Me.riderName.Name = "riderName"
         Me.riderName.Size = New System.Drawing.Size(496, 21)
@@ -74,15 +80,19 @@ Partial Class ManageRiders
         '
         'riderClass
         '
+        Me.riderClass.Anchor = CType(((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.riderClass.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.riderClass.FormattingEnabled = True
         Me.riderClass.Location = New System.Drawing.Point(84, 369)
         Me.riderClass.Name = "riderClass"
         Me.riderClass.Size = New System.Drawing.Size(384, 21)
+        Me.riderClass.Sorted = True
         Me.riderClass.TabIndex = 14
-        Me.riderClass.Text = "Select a rider class..."
         '
         'Label3
         '
+        Me.Label3.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.Label3.AutoSize = True
         Me.Label3.Location = New System.Drawing.Point(12, 372)
         Me.Label3.Name = "Label3"
@@ -92,6 +102,7 @@ Partial Class ManageRiders
         '
         'addClass
         '
+        Me.addClass.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.addClass.Location = New System.Drawing.Point(474, 367)
         Me.addClass.Name = "addClass"
         Me.addClass.Size = New System.Drawing.Size(106, 23)
@@ -101,6 +112,7 @@ Partial Class ManageRiders
         '
         'cancelButton
         '
+        Me.cancelButton.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.cancelButton.Location = New System.Drawing.Point(505, 407)
         Me.cancelButton.Name = "cancelButton"
         Me.cancelButton.Size = New System.Drawing.Size(75, 23)
@@ -110,6 +122,7 @@ Partial Class ManageRiders
         '
         'addButton
         '
+        Me.addButton.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.addButton.Enabled = False
         Me.addButton.Location = New System.Drawing.Point(424, 407)
         Me.addButton.Name = "addButton"
@@ -120,6 +133,7 @@ Partial Class ManageRiders
         '
         'deleteRider
         '
+        Me.deleteRider.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.deleteRider.Location = New System.Drawing.Point(12, 407)
         Me.deleteRider.Name = "deleteRider"
         Me.deleteRider.Size = New System.Drawing.Size(115, 23)

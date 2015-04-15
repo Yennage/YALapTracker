@@ -168,10 +168,14 @@ Public Class Form1
 
     Private Sub Button1_Click_1(sender As Object, e As EventArgs) Handles addButton.Click
 
-        ' GlobalVariables.eventID = 1 ' Purely for testing purposes
-        If GlobalVariables.eventName = "" Then GlobalVariables.eventName = GetEventName() ' This is purely placeholder as we don't have a "starter" form yet to handle event names
-        NewLap(riderText.Text, TimerValue.Text) ' Add the new lap (pass the timer value from here for maximum accuracy as the Sub will perform queries)
-        riderText.Clear() ' Clear the textbox for the benefit of the user
+        If riderText.Text <> "" Then
+            ' GlobalVariables.eventID = 1 ' Purely for testing purposes
+            If GlobalVariables.eventName = "" Then GlobalVariables.eventName = GetEventName() ' Only query the DB if we don't have the event name already
+            NewLap(riderText.Text, TimerValue.Text) ' Add the new lap (pass the timer value from here for maximum accuracy as the Sub will perform queries)
+            riderText.Clear() ' Clear the textbox for the benefit of the user
+        Else : MessageBox.Show("A rider number is required in order to add a lap.", "No Rider Number", MessageBoxButtons.OK, _
+        MessageBoxIcon.Warning) ' An empty input here will throw an exception
+        End If
 
     End Sub
 

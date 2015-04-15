@@ -75,12 +75,12 @@ Partial Class FetchEventDialog
         '
         'eventBox
         '
+        Me.eventBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.eventBox.FormattingEnabled = True
         Me.eventBox.Location = New System.Drawing.Point(15, 25)
         Me.eventBox.Name = "eventBox"
         Me.eventBox.Size = New System.Drawing.Size(408, 21)
         Me.eventBox.TabIndex = 2
-        Me.eventBox.Text = "Select an event..."
         '
         'FetchEventDialog
         '
