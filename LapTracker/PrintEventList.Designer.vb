@@ -38,6 +38,7 @@ Partial Class PrintEventList
         Me.StatusStrip1 = New System.Windows.Forms.StatusStrip()
         Me.ToolStripStatusLabel1 = New System.Windows.Forms.ToolStripStatusLabel()
         Me.printProgress = New System.Windows.Forms.ToolStripProgressBar()
+        Me.printLocation = New System.Windows.Forms.FolderBrowserDialog()
         Me.StatusStrip1.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -161,6 +162,7 @@ Partial Class PrintEventList
         Me.venueName.Anchor = CType(((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.venueName.Location = New System.Drawing.Point(75, 324)
+        Me.venueName.MaxLength = 128
         Me.venueName.Name = "venueName"
         Me.venueName.Size = New System.Drawing.Size(424, 21)
         Me.venueName.TabIndex = 12
@@ -184,6 +186,10 @@ Partial Class PrintEventList
         '
         Me.printProgress.Name = "printProgress"
         Me.printProgress.Size = New System.Drawing.Size(100, 16)
+        '
+        'printLocation
+        '
+        Me.printLocation.Description = "Select the folder where you would like to save your printable HTML and CSV file."
         '
         'PrintEventList
         '
@@ -229,4 +235,5 @@ Partial Class PrintEventList
     Friend WithEvents StatusStrip1 As System.Windows.Forms.StatusStrip
     Friend WithEvents printProgress As System.Windows.Forms.ToolStripProgressBar
     Friend WithEvents ToolStripStatusLabel1 As System.Windows.Forms.ToolStripStatusLabel
+    Friend WithEvents printLocation As System.Windows.Forms.FolderBrowserDialog
 End Class

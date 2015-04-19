@@ -150,6 +150,7 @@ Partial Class Form1
         Me.riderText.Anchor = CType(((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.riderText.Location = New System.Drawing.Point(12, 289)
+        Me.riderText.MaxLength = 64
         Me.riderText.Name = "riderText"
         Me.riderText.Size = New System.Drawing.Size(353, 21)
         Me.riderText.TabIndex = 0
@@ -250,6 +251,7 @@ Partial Class Form1
         Me.amendText.Anchor = CType(((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.amendText.Location = New System.Drawing.Point(12, 466)
+        Me.amendText.MaxLength = 64
         Me.amendText.Name = "amendText"
         Me.amendText.Size = New System.Drawing.Size(353, 21)
         Me.amendText.TabIndex = 13

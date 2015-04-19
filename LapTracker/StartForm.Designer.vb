@@ -33,13 +33,16 @@ Partial Class StartForm
         Me.Label1.AutoSize = True
         Me.Label1.Location = New System.Drawing.Point(9, 9)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(280, 13)
+        Me.Label1.Size = New System.Drawing.Size(279, 39)
         Me.Label1.TabIndex = 0
-        Me.Label1.Text = "Placeholder for a label explaining what this program does"
+        Me.Label1.Text = "Welcome to LapTracker, a program designed for tracking" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "and printing laptimes. Pl" & _
+    "ease click on a button below to" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "get started."
         '
         'Button1
         '
-        Me.Button1.Location = New System.Drawing.Point(12, 25)
+        Me.Button1.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.Button1.Location = New System.Drawing.Point(12, 51)
         Me.Button1.Name = "Button1"
         Me.Button1.Size = New System.Drawing.Size(277, 50)
         Me.Button1.TabIndex = 1
@@ -48,7 +51,8 @@ Partial Class StartForm
         '
         'Button2
         '
-        Me.Button2.Location = New System.Drawing.Point(12, 81)
+        Me.Button2.Anchor = CType((System.Windows.Forms.AnchorStyles.Left Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.Button2.Location = New System.Drawing.Point(12, 107)
         Me.Button2.Name = "Button2"
         Me.Button2.Size = New System.Drawing.Size(277, 50)
         Me.Button2.TabIndex = 2
@@ -57,7 +61,9 @@ Partial Class StartForm
         '
         'addRider
         '
-        Me.addRider.Location = New System.Drawing.Point(10, 137)
+        Me.addRider.Anchor = CType(((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.addRider.Location = New System.Drawing.Point(12, 163)
         Me.addRider.Name = "addRider"
         Me.addRider.Size = New System.Drawing.Size(277, 50)
         Me.addRider.TabIndex = 3
@@ -68,7 +74,7 @@ Partial Class StartForm
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(299, 195)
+        Me.ClientSize = New System.Drawing.Size(299, 225)
         Me.Controls.Add(Me.addRider)
         Me.Controls.Add(Me.Button2)
         Me.Controls.Add(Me.Button1)

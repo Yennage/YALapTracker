@@ -51,6 +51,7 @@ Partial Class EventDialog
         'nameTextbox
         '
         Me.nameTextbox.Location = New System.Drawing.Point(12, 64)
+        Me.nameTextbox.MaxLength = 256
         Me.nameTextbox.Name = "nameTextbox"
         Me.nameTextbox.Size = New System.Drawing.Size(411, 21)
         Me.nameTextbox.TabIndex = 5

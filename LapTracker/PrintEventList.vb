@@ -1,4 +1,5 @@
 ﻿Imports System.Data.SQLite
+Imports System.Text.RegularExpressions
 
 Public Class PrintEventList
 
@@ -36,7 +37,14 @@ Public Class PrintEventList
 
     Private Sub printButton_Click(sender As Object, e As EventArgs) Handles printButton.Click
 
-        StartThread()
+        If filenameCheck(venueName.Text) = False Then
+            Dim result As DialogResult = printLocation.ShowDialog
+            If result = Windows.Forms.DialogResult.OK Then StartThread()
+        Else
+            MessageBox.Show("Your venue name is invalid, please note that the following characters cannot be used: ^?:\\/:*?\""<>|", "Invalid File Name", _
+                            MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            venueName.Focus()
+        End If
 
     End Sub
 
@@ -46,7 +54,7 @@ Public Class PrintEventList
         worker = CType(sender, System.ComponentModel.BackgroundWorker)
 
         Dim WC As PrintEvent = CType(e.Argument, PrintEvent)
-        WC.CommencePrinting(venueName.Text, amTextbox.Text, pmTextbox.Text, worker, e)
+        WC.CommencePrinting(venueName.Text, amTextbox.Text, pmTextbox.Text, printLocation.SelectedPath & "\", worker, e)
 
     End Sub
 
@@ -106,6 +114,13 @@ Public Class PrintEventList
         printButton.Enabled = CheckText()
 
     End Sub
+
+    Public Function filenameCheck(ByVal checkInput As String)
+
+        Dim filenameRegex As New Regex("[" & Regex.Escape(New String(System.IO.Path.GetInvalidFileNameChars())) & "]")
+        Return filenameRegex.IsMatch(checkInput)
+
+    End Function
 
     Private Sub venueName_TextChanged(sender As Object, e As EventArgs) Handles venueName.TextChanged
 

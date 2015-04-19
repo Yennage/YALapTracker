@@ -65,6 +65,7 @@ Partial Class ManageRiders
         Me.riderNumber.Anchor = CType(((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.riderNumber.Location = New System.Drawing.Point(84, 315)
+        Me.riderNumber.MaxLength = 64
         Me.riderNumber.Name = "riderNumber"
         Me.riderNumber.Size = New System.Drawing.Size(496, 21)
         Me.riderNumber.TabIndex = 12
@@ -74,6 +75,7 @@ Partial Class ManageRiders
         Me.riderName.Anchor = CType(((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.riderName.Location = New System.Drawing.Point(84, 342)
+        Me.riderName.MaxLength = 512
         Me.riderName.Name = "riderName"
         Me.riderName.Size = New System.Drawing.Size(496, 21)
         Me.riderName.TabIndex = 13
