@@ -50,6 +50,7 @@ Partial Class Form1
         Me.undoButton = New System.Windows.Forms.Button()
         Me.alterButton = New System.Windows.Forms.Button()
         Me.amendText = New System.Windows.Forms.TextBox()
+        Me.returnButton = New System.Windows.Forms.Button()
         Me.SuspendLayout()
         '
         'StartStopButton
@@ -256,12 +257,22 @@ Partial Class Form1
         Me.amendText.Size = New System.Drawing.Size(353, 21)
         Me.amendText.TabIndex = 13
         '
+        'returnButton
+        '
+        Me.returnButton.Location = New System.Drawing.Point(452, 12)
+        Me.returnButton.Name = "returnButton"
+        Me.returnButton.Size = New System.Drawing.Size(128, 23)
+        Me.returnButton.TabIndex = 14
+        Me.returnButton.Text = "Return to Menu"
+        Me.returnButton.UseVisualStyleBackColor = True
+        '
         'Form1
         '
         Me.AcceptButton = Me.addButton
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(592, 496)
+        Me.Controls.Add(Me.returnButton)
         Me.Controls.Add(Me.amendText)
         Me.Controls.Add(Me.alterButton)
         Me.Controls.Add(Me.undoButton)
@@ -308,5 +319,6 @@ Partial Class Form1
     Friend WithEvents undoButton As System.Windows.Forms.Button
     Friend WithEvents alterButton As System.Windows.Forms.Button
     Friend WithEvents amendText As System.Windows.Forms.TextBox
+    Friend WithEvents returnButton As System.Windows.Forms.Button
 
 End Class

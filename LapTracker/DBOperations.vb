@@ -4,8 +4,7 @@ Public Class DBOperations
 
     Public Function SelectQuery(ByVal command As String, ByVal returnReader As Boolean) ' Used to run simple SQLite queries on specific table columns
 
-        Dim dbConnection As SQLiteConnection = New SQLiteConnection("URI=file:" & My.Computer.FileSystem.SpecialDirectories.MyDocuments & _
-                                                "\Visual Studio 2013\Projects\LapTracker\LaptrackerDB.s3db") ' Build the database connection
+        Dim dbConnection As SQLiteConnection = New SQLiteConnection("URI=file:" & My.Settings.databasePath) ' Build the database connection
         dbConnection.Open() ' Open the connection
         Dim dbCommand As SQLiteCommand = dbConnection.CreateCommand ' Create the command string
         Dim resultReader As SQLiteDataReader
@@ -28,8 +27,7 @@ Public Class DBOperations
 
     Public Sub DeleteValue(ByVal command As String)
 
-        Dim dbConnection As SQLiteConnection = New SQLiteConnection("URI=file:" & My.Computer.FileSystem.SpecialDirectories.MyDocuments & _
-                                                "\Visual Studio 2013\Projects\LapTracker\LaptrackerDB.s3db") ' Build the database connection
+        Dim dbConnection As SQLiteConnection = New SQLiteConnection("URI=file:" & My.Settings.databasePath) ' Build the database connection
         dbConnection.Open() ' Open the connection
         Dim dbCommand As SQLiteCommand = dbConnection.CreateCommand ' Create the command string
         dbCommand.CommandText = command ' Set the command text to the string we've been passed
@@ -42,8 +40,7 @@ Public Class DBOperations
 
         ' This needs to iterate through the list of laps and save each record to the laps table
 
-        Dim dbConnection As SQLiteConnection = New SQLiteConnection("URI=file:" & My.Computer.FileSystem.SpecialDirectories.MyDocuments & _
-                                               "\Visual Studio 2013\Projects\LapTracker\LaptrackerDB.s3db")
+        Dim dbConnection As SQLiteConnection = New SQLiteConnection("URI=file:" & My.Settings.databasePath)
         dbConnection.Open()
         Dim insertCommand As SQLiteCommand = New SQLiteCommand("INSERT INTO laps (eventID, eventName, riderID, riderName, riderClass, lapNumber, " & _
                                                                "totalTime) VALUES (@eventID, @eventName, @riderID, @riderName, @riderClass, @lapNumber, " & _
@@ -62,15 +59,13 @@ Public Class DBOperations
 
         Next
 
-        MessageBox.Show("Write Completed")
         dbConnection.Close()
 
     End Sub
 
     Public Sub AddRider(ByVal riderNumber As Integer, ByVal riderName As String, ByVal riderClass As String) ' Add a new rider to the riders table
 
-        Dim dbConnection As SQLiteConnection = New SQLiteConnection("URI=file:" & My.Computer.FileSystem.SpecialDirectories.MyDocuments & _
-                                               "\Visual Studio 2013\Projects\LapTracker\LaptrackerDB.s3db")
+        Dim dbConnection As SQLiteConnection = New SQLiteConnection("URI=file:" & My.Settings.databasePath)
         Dim insertCommand As SQLiteCommand = New SQLiteCommand("INSERT INTO riders (riderID, riderName, riderClass)" & _
                                                                "VALUES (@riderID, @riderName, @riderClass)", dbConnection) ' Build our query
 

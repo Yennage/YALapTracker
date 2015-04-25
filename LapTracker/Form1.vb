@@ -230,6 +230,11 @@ Public Class Form1
             ' TODO: Multithread this operation
             Dim operations As New DBOperations
             operations.WriteEventtoDatabase() ' Save our current event to the SQLite laps table
+            If MessageBox.Show("Database write completed, return to the main menu?", "Event Written to Database", MessageBoxButtons.YesNo) = _
+                Windows.Forms.DialogResult.Yes Then
+                Me.Close()
+                StartForm.Show()
+            End If
         End If
 
     End Sub
@@ -285,6 +290,16 @@ Public Class Form1
             changeList.FocusedItem.SubItems(4).Text & " to " & changeList.FocusedItem.SubItems(5).Text
         Catch ex As System.NullReferenceException ' If we don't have a valid item focused
         End Try
+
+    End Sub
+
+    Private Sub returnButton_Click(sender As Object, e As EventArgs) Handles returnButton.Click
+
+        If MessageBox.Show("Are you sure you want to return to the main menu? All unsaved event data will be lost.", "Confirm Return", MessageBoxButtons.YesNo) = _
+            Windows.Forms.DialogResult.Yes Then
+            Me.Close()
+            StartForm.Show()
+        End If
 
     End Sub
 End Class

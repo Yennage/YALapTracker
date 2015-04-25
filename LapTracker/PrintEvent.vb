@@ -72,8 +72,9 @@ Public Class PrintEvent
 
         My.Computer.FileSystem.WriteAllText(printLocation & venueName & ".html", htmlOutput, False)
         My.Computer.FileSystem.WriteAllText(printLocation & venueName & ".csv", csvOutput, False)
-        MessageBox.Show("Files successfully printed, your printable HTML and CSV files are available in: " & printLocation, _
-                        "Print Successful", MessageBoxButtons.OK)
+        MessageBox.Show("Files successfully printed, your printable HTML and CSV files are available in: " & printLocation & _
+                        " click OK to open this file location.", "Print Successful", MessageBoxButtons.OK)
+        Process.Start(printLocation)
 
     End Sub
 End Class
