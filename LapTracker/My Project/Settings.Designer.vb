@@ -106,7 +106,7 @@ Namespace My
         
         <Global.System.Configuration.UserScopedSettingAttribute(),  _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("C:\Users\Yen\Documents\Visual Studio 2013\Projects\LapTracker\LaptrackerDB.s3db")>  _
+         Global.System.Configuration.DefaultSettingValueAttribute("C:\sources\LaptrackerDB.s3db")>  _
         Public Property databasePath() As String
             Get
                 Return CType(Me("databasePath"),String)

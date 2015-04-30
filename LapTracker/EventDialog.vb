@@ -5,8 +5,7 @@ Public Class EventDialog
 
     Private Sub OK_Button_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles OK_Button.Click
 
-        Dim dbConnection As SQLiteConnection = New SQLiteConnection("URI=file:" & My.Computer.FileSystem.SpecialDirectories.MyDocuments & _
-                                               "\Visual Studio 2013\Projects\LapTracker\LaptrackerDB.s3db")
+        Dim dbConnection As SQLiteConnection = New SQLiteConnection("URI=file:" & My.Settings.databasePath)
         dbConnection.Open()
         Dim insertCommand As SQLiteCommand = New SQLiteCommand("INSERT INTO events (eventName) VALUES (@eventName)", dbConnection) ' Build our query
 
@@ -32,6 +31,12 @@ Public Class EventDialog
     Private Sub nameTextbox_TextChanged(sender As Object, e As EventArgs) Handles nameTextbox.TextChanged
 
         If nameTextbox.Text <> "" Then OK_Button.Enabled = True Else OK_Button.Enabled = False ' Make sure we can't have a blank event name
+
+    End Sub
+
+    Private Sub EventDialog_Activated(sender As Object, e As EventArgs) Handles Me.Activated
+
+        nameTextbox.Focus()
 
     End Sub
 End Class
