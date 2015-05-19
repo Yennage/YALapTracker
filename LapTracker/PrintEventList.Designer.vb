@@ -211,6 +211,7 @@ Partial Class PrintEventList
         Me.Controls.Add(Me.printButton)
         Me.Controls.Add(Me.cancelButton)
         Me.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
         Me.Name = "PrintEventList"
         Me.Text = "Select the events you wish to print..."
         Me.StatusStrip1.ResumeLayout(False)

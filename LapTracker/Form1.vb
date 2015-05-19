@@ -55,7 +55,6 @@ Public Class Form1
                                           True) ' This can be updated at a later date to fetch lap data from only certain events
 
         While (dbReader.Read())
-            ' Below placeholder will be replaced with the global eventName variable once testing is complete
             currentRow = {dbReader("eventID"), GlobalVariables.eventName, dbReader("riderID"), dbReader("riderName"), _
                           dbReader("riderClass"), dbReader("lapNumber"), "00:00:00"} ' Event name is our current event and event time is reset
             dataView.Items.Add(New ListViewItem(currentRow)) ' Update the listview

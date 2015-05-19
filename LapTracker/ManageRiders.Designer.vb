@@ -38,6 +38,7 @@ Partial Class ManageRiders
         Me.ridersName = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.ridersClass = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.textTooltip = New System.Windows.Forms.ToolTip(Me.components)
+        Me.removeClass = New System.Windows.Forms.Button()
         Me.SuspendLayout()
         '
         'Label1
@@ -88,7 +89,7 @@ Partial Class ManageRiders
         Me.riderClass.FormattingEnabled = True
         Me.riderClass.Location = New System.Drawing.Point(84, 369)
         Me.riderClass.Name = "riderClass"
-        Me.riderClass.Size = New System.Drawing.Size(384, 21)
+        Me.riderClass.Size = New System.Drawing.Size(243, 21)
         Me.riderClass.Sorted = True
         Me.riderClass.TabIndex = 14
         '
@@ -179,12 +180,23 @@ Partial Class ManageRiders
         Me.textTooltip.ToolTipIcon = System.Windows.Forms.ToolTipIcon.Warning
         Me.textTooltip.ToolTipTitle = "Invalid Character"
         '
+        'removeClass
+        '
+        Me.removeClass.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.removeClass.Location = New System.Drawing.Point(333, 367)
+        Me.removeClass.Name = "removeClass"
+        Me.removeClass.Size = New System.Drawing.Size(135, 23)
+        Me.removeClass.TabIndex = 21
+        Me.removeClass.Text = "Remove Selected Class"
+        Me.removeClass.UseVisualStyleBackColor = True
+        '
         'ManageRiders
         '
         Me.AcceptButton = Me.addButton
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(592, 440)
+        Me.Controls.Add(Me.removeClass)
         Me.Controls.Add(Me.riderList)
         Me.Controls.Add(Me.deleteRider)
         Me.Controls.Add(Me.addButton)
@@ -197,6 +209,7 @@ Partial Class ManageRiders
         Me.Controls.Add(Me.Label2)
         Me.Controls.Add(Me.Label1)
         Me.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
         Me.Name = "ManageRiders"
         Me.Text = "Add or remove riders..."
         Me.ResumeLayout(False)
@@ -218,4 +231,5 @@ Partial Class ManageRiders
     Friend WithEvents ridersName As System.Windows.Forms.ColumnHeader
     Friend WithEvents ridersClass As System.Windows.Forms.ColumnHeader
     Friend WithEvents textTooltip As System.Windows.Forms.ToolTip
+    Friend WithEvents removeClass As System.Windows.Forms.Button
 End Class

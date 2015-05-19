@@ -141,6 +141,18 @@ Public Class ManageRiders
     Private Sub addClass_Click(sender As Object, e As EventArgs) Handles addClass.Click
 
         AddClassDialog.Show()
+        AddClassDialog.className.Focus()
+
+    End Sub
+
+    Private Sub removeClass_Click(sender As Object, e As EventArgs) Handles removeClass.Click
+
+        If riderClass.SelectedIndex >= 0 Then ' Check we have a class selected
+            My.Settings.riderClasses.Remove(riderClass.SelectedItem) ' Remove the selected class
+            FetchClasses() ' Refresh the UI
+        Else
+            MessageBox.Show("Please select a class to remove in the Class drop-down.", "No Class Selected", MessageBoxButtons.OK, MessageBoxIcon.Information)
+        End If
 
     End Sub
 End Class
