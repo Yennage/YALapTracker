@@ -27,6 +27,7 @@ Partial Class StartForm
         Me.Button1 = New System.Windows.Forms.Button()
         Me.Button2 = New System.Windows.Forms.Button()
         Me.addRider = New System.Windows.Forms.Button()
+        Me.deleteEvents = New System.Windows.Forms.Button()
         Me.SuspendLayout()
         '
         'Label1
@@ -64,18 +65,30 @@ Partial Class StartForm
         '
         Me.addRider.Anchor = CType(((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.addRider.Location = New System.Drawing.Point(12, 163)
+        Me.addRider.Location = New System.Drawing.Point(12, 220)
         Me.addRider.Name = "addRider"
         Me.addRider.Size = New System.Drawing.Size(277, 50)
         Me.addRider.TabIndex = 3
         Me.addRider.Text = "Manage Riders"
         Me.addRider.UseVisualStyleBackColor = True
         '
+        'deleteEvents
+        '
+        Me.deleteEvents.Anchor = CType(((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.deleteEvents.Location = New System.Drawing.Point(12, 164)
+        Me.deleteEvents.Name = "deleteEvents"
+        Me.deleteEvents.Size = New System.Drawing.Size(277, 50)
+        Me.deleteEvents.TabIndex = 4
+        Me.deleteEvents.Text = "Manage Events"
+        Me.deleteEvents.UseVisualStyleBackColor = True
+        '
         'StartForm
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(299, 225)
+        Me.ClientSize = New System.Drawing.Size(299, 282)
+        Me.Controls.Add(Me.deleteEvents)
         Me.Controls.Add(Me.addRider)
         Me.Controls.Add(Me.Button2)
         Me.Controls.Add(Me.Button1)
@@ -92,4 +105,5 @@ Partial Class StartForm
     Friend WithEvents Button1 As System.Windows.Forms.Button
     Friend WithEvents Button2 As System.Windows.Forms.Button
     Friend WithEvents addRider As System.Windows.Forms.Button
+    Friend WithEvents deleteEvents As System.Windows.Forms.Button
 End Class

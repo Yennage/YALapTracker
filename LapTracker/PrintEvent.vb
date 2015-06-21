@@ -44,8 +44,12 @@ Public Class PrintEvent
             While (dbReader.Read()) ' Iterate through all values returned by the current class
                 positionCounter += 1 ' Increment the position counter
                 currentRow = {dbReader("riderID"), dbReader("riderName"), dbReader("lapNumber"), dbReader("totalTime")}
-                amLaps = operations.SelectQuery("SELECT lapNumber FROM laps WHERE eventName = """ & amID & _
-                                                                        """ AND riderID = " & currentRow(0), False)
+                Try
+                    amLaps = operations.SelectQuery("SELECT lapNumber FROM laps WHERE eventName = """ & amID & _
+                                                                            """ AND riderID = " & currentRow(0), False)
+                Catch
+                    MessageBox.Show("ERROR!")
+                End Try
                 amTime = TimeSpan.Parse(operations.SelectQuery("SELECT totalTime FROM laps WHERE eventName = """ & amID & _
                                                                         """ AND riderID = " & currentRow(0), False))
                 pmTime = TimeSpan.Parse(currentRow(3))

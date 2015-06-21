@@ -36,15 +36,14 @@ Public Class DBOperations
 
     End Sub
 
-    Public Sub WriteEventtoDatabase() ' Writes the data from a completed event to the SQLite laps table (move SQLite stuff over to a separate class)
-
-        ' This needs to iterate through the list of laps and save each record to the laps table
+    Public Sub WriteEventtoDatabase() ' Writes the data from a completed event to the SQLite laps table
 
         Dim dbConnection As SQLiteConnection = New SQLiteConnection("URI=file:" & My.Settings.databasePath)
         dbConnection.Open()
+        Dim dbTransaction As SQLiteTransaction = dbConnection.BeginTransaction ' Begin the transaction
         Dim insertCommand As SQLiteCommand = New SQLiteCommand("INSERT INTO laps (eventID, eventName, riderID, riderName, riderClass, lapNumber, " & _
                                                                "totalTime) VALUES (@eventID, @eventName, @riderID, @riderName, @riderClass, @lapNumber, " & _
-                                                               "@totalTime)", dbConnection) ' Build our query
+                                                               "@totalTime)", dbConnection, dbTransaction) ' Build our query
 
         For Each currentRow As ListViewItem In Form1.dataView.Items
 
@@ -59,6 +58,7 @@ Public Class DBOperations
 
         Next
 
+        dbTransaction.Commit()
         dbConnection.Close()
 
     End Sub

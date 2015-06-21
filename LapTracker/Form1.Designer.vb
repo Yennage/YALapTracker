@@ -39,7 +39,6 @@ Partial Class Form1
         Me.addButton = New System.Windows.Forms.Button()
         Me.riderText = New System.Windows.Forms.TextBox()
         Me.saveButton = New System.Windows.Forms.Button()
-        Me.BackgroundWorker1 = New System.ComponentModel.BackgroundWorker()
         Me.historyLabel = New System.Windows.Forms.Label()
         Me.changeList = New System.Windows.Forms.ListView()
         Me.ColumnHeader1 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
@@ -166,10 +165,6 @@ Partial Class Form1
         Me.saveButton.TabIndex = 8
         Me.saveButton.Text = "Complete and Save"
         Me.saveButton.UseVisualStyleBackColor = True
-        '
-        'BackgroundWorker1
-        '
-        Me.BackgroundWorker1.WorkerReportsProgress = True
         '
         'historyLabel
         '
@@ -309,7 +304,6 @@ Partial Class Form1
     Friend WithEvents riderText As System.Windows.Forms.TextBox
     Friend WithEvents riderClass As System.Windows.Forms.ColumnHeader
     Friend WithEvents saveButton As System.Windows.Forms.Button
-    Friend WithEvents BackgroundWorker1 As System.ComponentModel.BackgroundWorker
     Friend WithEvents historyLabel As System.Windows.Forms.Label
     Friend WithEvents changeList As System.Windows.Forms.ListView
     Friend WithEvents ColumnHeader1 As System.Windows.Forms.ColumnHeader

@@ -189,10 +189,10 @@
     <Compile Include="StartForm.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="WriteEventDialog.Designer.vb">
-      <DependentUpon>WriteEventDialog.vb</DependentUpon>
+    <Compile Include="ManageEvents.Designer.vb">
+      <DependentUpon>ManageEvents.vb</DependentUpon>
     </Compile>
-    <Compile Include="WriteEventDialog.vb">
+    <Compile Include="ManageEvents.vb">
       <SubType>Form</SubType>
     </Compile>
   </ItemGroup>
@@ -224,8 +224,8 @@
     <EmbeddedResource Include="StartForm.resx">
       <DependentUpon>StartForm.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="WriteEventDialog.resx">
-      <DependentUpon>WriteEventDialog.vb</DependentUpon>
+    <EmbeddedResource Include="ManageEvents.resx">
+      <DependentUpon>ManageEvents.vb</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

@@ -227,7 +227,6 @@ Public Class Form1
 
         If MessageBox.Show("Are you sure you want to complete this event?", "Confirm completion...", MessageBoxButtons.YesNo, _
                           MessageBoxIcon.Information) = Windows.Forms.DialogResult.Yes Then
-            ' TODO: Multithread this operation
             Dim operations As New DBOperations
             operations.WriteEventtoDatabase() ' Save our current event to the SQLite laps table
             If MessageBox.Show("Database write completed, return to the main menu?", "Event Written to Database", MessageBoxButtons.YesNo) = _

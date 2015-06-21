@@ -25,4 +25,11 @@
         ManageRiders.Show()
 
     End Sub
+
+    Private Sub manageEvents_Click(sender As Object, e As EventArgs) Handles deleteEvents.Click
+
+        Me.Hide()
+        ManageEvents.Show()
+
+    End Sub
 End Class
