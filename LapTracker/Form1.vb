@@ -51,11 +51,12 @@ Public Class Form1
         Dim dbReader As SQLiteDataReader
         Dim currentRow(7) As String
 
+        GlobalVariables.eventName = GetEventName() ' We're loading AM data so we need to fetch the event name first
         dbReader = operations.SelectQuery("SELECT * FROM laps WHERE eventName = """ & eventName & """ ORDER BY totalTime ASC", _
                                           True) ' This can be updated at a later date to fetch lap data from only certain events
 
         While (dbReader.Read())
-            currentRow = {dbReader("eventID"), GlobalVariables.eventName, dbReader("riderID"), dbReader("riderName"), _
+            currentRow = {GlobalVariables.eventID, GlobalVariables.eventName, dbReader("riderID"), dbReader("riderName"), _
                           dbReader("riderClass"), dbReader("lapNumber"), "00:00:00"} ' Event name is our current event and event time is reset
             dataView.Items.Add(New ListViewItem(currentRow)) ' Update the listview
         End While

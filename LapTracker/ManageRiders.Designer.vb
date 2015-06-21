@@ -139,9 +139,9 @@ Partial Class ManageRiders
         Me.deleteRider.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.deleteRider.Location = New System.Drawing.Point(12, 407)
         Me.deleteRider.Name = "deleteRider"
-        Me.deleteRider.Size = New System.Drawing.Size(115, 23)
+        Me.deleteRider.Size = New System.Drawing.Size(136, 23)
         Me.deleteRider.TabIndex = 19
-        Me.deleteRider.Text = "Remove Selected"
+        Me.deleteRider.Text = "Remove Selected Rider"
         Me.deleteRider.UseVisualStyleBackColor = True
         '
         'riderList
