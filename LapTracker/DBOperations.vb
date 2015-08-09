@@ -25,6 +25,22 @@ Public Class DBOperations
 
     End Function
 
+    Public Sub UpdateQuery(ByVal command As String) ' Used to run SQLite update commands
+
+        Dim dbConnection As SQLiteConnection = New SQLiteConnection("URI=file:" & My.Settings.databasePath) ' Build the database connection
+        dbConnection.Open() ' Open the connection
+        Dim dbCommand As SQLiteCommand = dbConnection.CreateCommand ' Create the command string
+
+        dbCommand.CommandText = command ' Set the command text to the string we've been passed
+        dbCommand.ExecuteScalar() ' Execute the command
+
+        ' Close the database connection
+        If Not IsNothing(dbConnection) Then
+            dbConnection.Close()
+        End If
+
+    End Sub
+
     Public Sub DeleteValue(ByVal command As String)
 
         Dim dbConnection As SQLiteConnection = New SQLiteConnection("URI=file:" & My.Settings.databasePath) ' Build the database connection

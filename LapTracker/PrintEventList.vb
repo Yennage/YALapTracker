@@ -54,7 +54,7 @@ Public Class PrintEventList
         worker = CType(sender, System.ComponentModel.BackgroundWorker)
 
         Dim WC As PrintEvent = CType(e.Argument, PrintEvent)
-        WC.CommencePrinting(venueName.Text, amTextbox.Text, pmTextbox.Text, printLocation.SelectedPath & "\", worker, e)
+        WC.CommencePrinting(venueName.Text, amTextbox.Text, pmTextbox.Text, printLocation.SelectedPath & "\", preloadCheckbox.Checked, worker, e)
 
     End Sub
 

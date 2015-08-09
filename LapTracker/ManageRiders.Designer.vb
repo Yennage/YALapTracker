@@ -39,6 +39,7 @@ Partial Class ManageRiders
         Me.ridersClass = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.textTooltip = New System.Windows.Forms.ToolTip(Me.components)
         Me.removeClass = New System.Windows.Forms.Button()
+        Me.updateRider = New System.Windows.Forms.Button()
         Me.SuspendLayout()
         '
         'Label1
@@ -137,7 +138,7 @@ Partial Class ManageRiders
         'deleteRider
         '
         Me.deleteRider.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.deleteRider.Location = New System.Drawing.Point(12, 407)
+        Me.deleteRider.Location = New System.Drawing.Point(152, 407)
         Me.deleteRider.Name = "deleteRider"
         Me.deleteRider.Size = New System.Drawing.Size(136, 23)
         Me.deleteRider.TabIndex = 19
@@ -190,12 +191,22 @@ Partial Class ManageRiders
         Me.removeClass.Text = "Remove Selected Class"
         Me.removeClass.UseVisualStyleBackColor = True
         '
+        'updateRider
+        '
+        Me.updateRider.Location = New System.Drawing.Point(12, 407)
+        Me.updateRider.Name = "updateRider"
+        Me.updateRider.Size = New System.Drawing.Size(134, 23)
+        Me.updateRider.TabIndex = 22
+        Me.updateRider.Text = "Update Selected Rider"
+        Me.updateRider.UseVisualStyleBackColor = True
+        '
         'ManageRiders
         '
         Me.AcceptButton = Me.addButton
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(592, 440)
+        Me.Controls.Add(Me.updateRider)
         Me.Controls.Add(Me.removeClass)
         Me.Controls.Add(Me.riderList)
         Me.Controls.Add(Me.deleteRider)
@@ -232,4 +243,5 @@ Partial Class ManageRiders
     Friend WithEvents ridersClass As System.Windows.Forms.ColumnHeader
     Friend WithEvents textTooltip As System.Windows.Forms.ToolTip
     Friend WithEvents removeClass As System.Windows.Forms.Button
+    Friend WithEvents updateRider As System.Windows.Forms.Button
 End Class

@@ -39,6 +39,7 @@ Partial Class PrintEventList
         Me.ToolStripStatusLabel1 = New System.Windows.Forms.ToolStripStatusLabel()
         Me.printProgress = New System.Windows.Forms.ToolStripProgressBar()
         Me.printLocation = New System.Windows.Forms.FolderBrowserDialog()
+        Me.preloadCheckbox = New System.Windows.Forms.CheckBox()
         Me.StatusStrip1.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -191,12 +192,23 @@ Partial Class PrintEventList
         '
         Me.printLocation.Description = "Select the folder where you would like to save your printable HTML and CSV file."
         '
+        'preloadCheckbox
+        '
+        Me.preloadCheckbox.AutoSize = True
+        Me.preloadCheckbox.Location = New System.Drawing.Point(12, 422)
+        Me.preloadCheckbox.Name = "preloadCheckbox"
+        Me.preloadCheckbox.Size = New System.Drawing.Size(193, 17)
+        Me.preloadCheckbox.TabIndex = 14
+        Me.preloadCheckbox.Text = "AM event data was not pre-loaded"
+        Me.preloadCheckbox.UseVisualStyleBackColor = True
+        '
         'PrintEventList
         '
         Me.AcceptButton = Me.printButton
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(592, 476)
+        Me.Controls.Add(Me.preloadCheckbox)
         Me.Controls.Add(Me.StatusStrip1)
         Me.Controls.Add(Me.venueName)
         Me.Controls.Add(Me.Label4)
@@ -237,4 +249,5 @@ Partial Class PrintEventList
     Friend WithEvents printProgress As System.Windows.Forms.ToolStripProgressBar
     Friend WithEvents ToolStripStatusLabel1 As System.Windows.Forms.ToolStripStatusLabel
     Friend WithEvents printLocation As System.Windows.Forms.FolderBrowserDialog
+    Friend WithEvents preloadCheckbox As System.Windows.Forms.CheckBox
 End Class

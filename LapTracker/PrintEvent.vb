@@ -6,7 +6,7 @@ Public Class PrintEvent
         Public totalRows As Integer ' The total number of rows we need to print
     End Class
 
-    Public Sub CommencePrinting(ByVal venueName As String, ByVal amID As String, ByVal pmID As String, ByVal printLocation As String, _
+    Public Sub CommencePrinting(ByVal venueName As String, ByVal amID As String, ByVal pmID As String, ByVal printLocation As String, ByVal amPreload As Boolean, _
                                 ByVal worker As System.ComponentModel.BackgroundWorker, ByVal e As System.ComponentModel.DoWorkEventArgs)
         ' Handles printing event details to HTML and CSV
 
@@ -47,8 +47,9 @@ Public Class PrintEvent
                 Try
                     amLaps = operations.SelectQuery("SELECT lapNumber FROM laps WHERE eventName = """ & amID & _
                                                                             """ AND riderID = " & currentRow(0), False)
-                Catch
-                    MessageBox.Show("ERROR!")
+                Catch ' We have a database error
+                    MessageBox.Show("Database connection error, lap results for eventID: " & amID & " could not be returned.", "Database Error", _
+                                    MessageBoxButtons.OKCancel, MessageBoxIcon.Error)
                 End Try
                 amTime = TimeSpan.Parse(operations.SelectQuery("SELECT totalTime FROM laps WHERE eventName = """ & amID & _
                                                                         """ AND riderID = " & currentRow(0), False))
@@ -57,9 +58,15 @@ Public Class PrintEvent
                 htmlOutput &= Chr(10) & "<td>" & currentRow(1) & "</td>" ' Rider Name
                 htmlOutput &= Chr(10) & "<td>" & amLaps & "</td>" ' Morning Laps
                 htmlOutput &= Chr(10) & "<td>" & amTime.ToString & "</td>" ' Morning Time
-                htmlOutput &= Chr(10) & "<td>" & CInt(currentRow(2)) - amLaps & "</td>" ' Afternoon Laps (Total - Morning Laps)
+                If amPreload = False Then ' The user loaded AM event data correctly, calculate as standard
+                    htmlOutput &= Chr(10) & "<td>" & CInt(currentRow(2)) - amLaps & "</td>" ' Afternoon Laps (Total - Morning Laps)
+                Else : htmlOutput &= Chr(10) & "<td>" & currentRow(2) & "</td>" ' The user forgot to load AM event data so don't perform a subtraction
+                End If
                 htmlOutput &= Chr(10) & "<td>" & pmTime.ToString & "</td>" ' Afternoon Time
-                htmlOutput &= Chr(10) & "<td>" & currentRow(2) & "</td>" ' Total Laps
+                If amPreload = False Then
+                    htmlOutput &= Chr(10) & "<td>" & currentRow(2) & "</td>" ' Total Laps (note that this total assumes the user remembered to load AM event data)
+                Else : htmlOutput &= Chr(10) & "<td>" & amLaps + CInt(currentRow(2)) & "</td>" ' Calculate Total Laps a different way
+                End If
                 htmlOutput &= Chr(10) & "<td>" & (amTime + pmTime).ToString & "</td>" ' Total Time
                 htmlOutput &= Chr(10) & "<td>" & positionCounter & "</td>" ' Final Position
                 htmlOutput &= Chr(10) & "<td>" & pointsCounter & "</td></tr>" ' Final Points

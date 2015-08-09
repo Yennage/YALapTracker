@@ -22,7 +22,7 @@ Public Class ManageRiders
         Dim dbReader As SQLiteDataReader
         Dim currentRow(3) As String
 
-        dbReader = operations.SelectQuery("SELECT * FROM riders ORDER BY riderName ASC", True) ' Retrieve all riders
+        dbReader = operations.SelectQuery("SELECT * FROM riders ORDER BY riderID ASC", True) ' Retrieve all riders (sorted by riderID)
 
         While (dbReader.Read())
             currentRow = {dbReader("riderID"), dbReader("riderName"), dbReader("riderClass")} ' Build an array for the current row
@@ -152,6 +152,50 @@ Public Class ManageRiders
             FetchClasses() ' Refresh the UI
         Else
             MessageBox.Show("Please select a class to remove in the Class drop-down.", "No Class Selected", MessageBoxButtons.OK, MessageBoxIcon.Information)
+        End If
+
+    End Sub
+
+    Private Sub riderList_SelectedIndexChanged(sender As Object, e As EventArgs) Handles riderList.SelectedIndexChanged
+
+        Dim selectedRider As ListView.SelectedListViewItemCollection = riderList.SelectedItems
+        ' We only ever have one selection but this is better than just performing a Try Catch on null reference/out of range exceptions
+        For Each rider As ListViewItem In selectedRider
+            ' Update the UI textboxes
+            riderNumber.Text = rider.SubItems(0).Text
+            riderName.Text = rider.SubItems(1).Text
+            riderClass.Text = rider.SubItems(2).Text
+        Next
+
+    End Sub
+
+    Private Sub updateRider_Click(sender As Object, e As EventArgs) Handles updateRider.Click
+
+        Dim riderID As String = riderNumber.Text
+        Dim newName As String = riderName.Text
+        Dim newClass As String = riderClass.Text
+        Dim userMessage As String = "No changes" & Chr(10) ' The confirmation of changes message to be issued to the user
+        Dim operations As New DBOperations
+        Dim dbReader As SQLiteDataReader
+
+        dbReader = operations.SelectQuery("SELECT * FROM riders WHERE riderID = """ & riderID & """", True)
+
+        ' Generate the change summary
+        While (dbReader.Read())
+            If dbReader("riderName") <> newName Then userMessage = "Rider Name from: " & dbReader("riderName") & " to: " & newName & Chr(10)
+            If dbReader("riderClass") <> newClass Then userMessage &= "Rider Class from: " & dbReader("riderClass") & " to: " & newClass & Chr(10)
+        End While
+
+        userMessage &= Chr(10)
+
+        ' Check with the user before updating
+        If MessageBox.Show("You are about to update the following details of rider number: " & riderID & Chr(10) & Chr(10) & _
+                           userMessage & "Are you sure you want to proceed?", "Confirm Update", MessageBoxButtons.YesNo) = Windows.Forms.DialogResult.Yes Then
+            operations.UpdateQuery("UPDATE riders SET riderName = """ & newName & """, riderClass = """ & newClass & """ WHERE riderID = """ & _
+                                   riderID & """") ' Update our rider
+            FetchRiders() ' Refresh the list
+            riderNumber.Clear()
+            riderName.Clear()
         End If
 
     End Sub
