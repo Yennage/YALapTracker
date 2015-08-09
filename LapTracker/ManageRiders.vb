@@ -133,6 +133,8 @@ Public Class ManageRiders
         If MessageBox.Show("Are you sure you want to remove " & riderList.FocusedItem.SubItems(1).Text & " from the riders database?" _
                            , "Confirm Deletion", MessageBoxButtons.YesNo) = Windows.Forms.DialogResult.Yes Then
             operations.DeleteValue("DELETE FROM riders WHERE riderID = " & riderID) ' Confirm the deletion, then carry it out
+            riderNumber.Clear()
+            riderName.Clear()
             FetchRiders() ' Update the UI
         End If
 

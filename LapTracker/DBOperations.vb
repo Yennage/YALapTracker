@@ -12,8 +12,12 @@ Public Class DBOperations
 
         dbCommand.CommandText = command ' Set the command text to the string we've been passed
         If returnReader = False Then ' If we're querying a specific column
-            queryResult = dbCommand.ExecuteScalar.ToString ' Execute the query and return the command value
-            Return queryResult
+            Try
+                queryResult = dbCommand.ExecuteScalar.ToString ' Execute the query and return the command value
+                Return queryResult
+            Catch ex As System.NullReferenceException ' The value does not exist in the database/no query result could be returned
+                Return 0
+            End Try
         Else
             resultReader = dbCommand.ExecuteReader ' Execute the query and return the command reader
             Return resultReader

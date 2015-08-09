@@ -17,8 +17,8 @@ Public Class PrintEvent
         Dim csvRow(10) As String
         Dim htmlOutput As String = My.Resources.tableHeader & Date.Today & "&emsp;&emsp;&emsp;Venue: " & venueName & "</br></br>" ' Add date and venue name to the table header
         Dim csvOutput As String = "Banovallum Motorcycle Club Results," & Date.Today & ",Venue: " & venueName
-        Dim tableHtml As String = "<table border=""1""style=""width:75%"">"
-        Dim tableColumns As String = "<tr><td>Rider No.</td><td>Rider Name</td><td>Morning Laps</td><td>Time</td><td>Afternoon Laps</td>" & _
+        Dim tableHtml As String = "<table border=""1""style=""width:75%;"">"
+        Dim tableColumns As String = "<tr style=""font-size:0.85em;font-weight:bold;""><td>Rider No.</td><td>Rider Name</td><td>Morning Laps</td><td>Time</td><td>Afternoon Laps</td>" & _
 "<td>Time</td><td>Total Laps</td><td>Time</td><td>Final Position</td><td>Final Points</td></tr>" ' Our columns
         Dim positionCounter As Integer
         Dim pointsCounter As Integer
@@ -35,7 +35,7 @@ Public Class PrintEvent
             positionCounter = 0 ' Reset the positon variable
             pointsCounter = My.Settings.pointsAllocation ' Reset the points counter variable
             htmlOutput &= Chr(10) & tableHtml
-            htmlOutput &= Chr(10) & "<tr>Class: " & currentClass & "</tr>"
+            htmlOutput &= Chr(10) & "<tr style=""font-size:0.85em;"">Class: " & currentClass & "</tr>"
             htmlOutput &= Chr(10) & tableColumns
             csvOutput &= Chr(10) & currentClass
 
@@ -44,17 +44,12 @@ Public Class PrintEvent
             While (dbReader.Read()) ' Iterate through all values returned by the current class
                 positionCounter += 1 ' Increment the position counter
                 currentRow = {dbReader("riderID"), dbReader("riderName"), dbReader("lapNumber"), dbReader("totalTime")}
-                Try
-                    amLaps = operations.SelectQuery("SELECT lapNumber FROM laps WHERE eventName = """ & amID & _
+                amLaps = operations.SelectQuery("SELECT lapNumber FROM laps WHERE eventName = """ & amID & _
                                                                             """ AND riderID = " & currentRow(0), False)
-                Catch ' We have a database error
-                    MessageBox.Show("Database connection error, lap results for eventID: " & amID & " could not be returned.", "Database Error", _
-                                    MessageBoxButtons.OKCancel, MessageBoxIcon.Error)
-                End Try
                 amTime = TimeSpan.Parse(operations.SelectQuery("SELECT totalTime FROM laps WHERE eventName = """ & amID & _
-                                                                        """ AND riderID = " & currentRow(0), False))
+                                                                            """ AND riderID = " & currentRow(0), False))
                 pmTime = TimeSpan.Parse(currentRow(3))
-                htmlOutput &= Chr(10) & "<tr><td>" & Chr(10) & currentRow(0) & "</td>" ' Rider No
+                htmlOutput &= Chr(10) & "<tr style=""font-size:0.85em;""><td>" & Chr(10) & currentRow(0) & "</td>" ' Rider No
                 htmlOutput &= Chr(10) & "<td>" & currentRow(1) & "</td>" ' Rider Name
                 htmlOutput &= Chr(10) & "<td>" & amLaps & "</td>" ' Morning Laps
                 htmlOutput &= Chr(10) & "<td>" & amTime.ToString & "</td>" ' Morning Time
@@ -62,7 +57,7 @@ Public Class PrintEvent
                     htmlOutput &= Chr(10) & "<td>" & CInt(currentRow(2)) - amLaps & "</td>" ' Afternoon Laps (Total - Morning Laps)
                 Else : htmlOutput &= Chr(10) & "<td>" & currentRow(2) & "</td>" ' The user forgot to load AM event data so don't perform a subtraction
                 End If
-                htmlOutput &= Chr(10) & "<td>" & pmTime.ToString & "</td>" ' Afternoon Time
+                    htmlOutput &= Chr(10) & "<td>" & pmTime.ToString & "</td>" ' Afternoon Time
                 If amPreload = False Then
                     htmlOutput &= Chr(10) & "<td>" & currentRow(2) & "</td>" ' Total Laps (note that this total assumes the user remembered to load AM event data)
                 Else : htmlOutput &= Chr(10) & "<td>" & amLaps + CInt(currentRow(2)) & "</td>" ' Calculate Total Laps a different way
@@ -70,8 +65,12 @@ Public Class PrintEvent
                 htmlOutput &= Chr(10) & "<td>" & (amTime + pmTime).ToString & "</td>" ' Total Time
                 htmlOutput &= Chr(10) & "<td>" & positionCounter & "</td>" ' Final Position
                 htmlOutput &= Chr(10) & "<td>" & pointsCounter & "</td></tr>" ' Final Points
-                csvRow = {currentRow(0), currentRow(1), amLaps, amTime.ToString, CInt(currentRow(2)) - amLaps, pmTime.ToString, _
-                          currentRow(2), (amTime + pmTime).ToString, positionCounter, pointsCounter} ' Build an array for our CSV row
+                If amPreload = False Then
+                    csvRow = {currentRow(0), currentRow(1), amLaps, amTime.ToString, CInt(currentRow(2)) - amLaps, pmTime.ToString, _
+                              currentRow(2), (amTime + pmTime).ToString, positionCounter, pointsCounter} ' Build an array for our CSV row
+                Else : csvRow = {currentRow(0), currentRow(1), amLaps, amTime.ToString, currentRow(2), pmTime.ToString, _
+                              amLaps + CInt(currentRow(2)), (amTime + pmTime).ToString, positionCounter, pointsCounter}
+                End If
                 csvOutput &= Chr(10) & String.Join(",", csvRow) ' Delimit our array
                 If pointsCounter >= 1 Then pointsCounter -= 1 ' Decrement the points counter if it won't create a negative value
                 state.rowsPrinted += 1
